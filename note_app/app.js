@@ -2,6 +2,7 @@ const chalk = require('chalk');
 const notes = require('./notes.js');
 const validator = require('validator');
 const yargs = require('yargs');
+const { triggerAsyncId } = require('async_hooks');
 
 //customize version
 yargs.version('1.1.0');
@@ -24,7 +25,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function(argv){
+    handler(argv){
         notes.addNote(argv.title, argv.body);
     }
 });
@@ -40,24 +41,31 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: function (argv){
+    handler(argv){
         notes.removeNote(argv.title);
     }
 })
 
 //create read command
 yargs.command({
-    command: 'create',
+    command: 'read',
     describe: 'reads given note content',
-    handler: function (){console.log('here will come content of note')}
+    builder:{
+        title: {
+            describe: 'Title of note to look for',
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv){notes.readNote(argv.title)}
 })
 
 //list command
 yargs.command({
     command: 'listNotes',
     description: 'list existing notes',
-    handler: function (){
-        console.log('here will come list of notes')
+    handler(){
+        notes.getNotes();
     }
 })
 
