@@ -11,6 +11,9 @@ const getNotes = () => {
 
 const addNote = (title, body) => {
     const notes = loadNotes();
+
+    debugger;
+
     if (isNoteOnTheList(title,notes)){
         console.log(chalk.yellow.inverse('Note with title ' +title+ ' exists, skipping.'));
     } else {
