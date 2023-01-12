@@ -1,8 +1,6 @@
 const chalk = require('chalk');
 const request = require('request');
 
-const lat = '';
-const long = '';
 const baseUrl = 'https://geocode.xyz/';
 const api_key = 'auth=445831585840255419331x79355'; 
 
