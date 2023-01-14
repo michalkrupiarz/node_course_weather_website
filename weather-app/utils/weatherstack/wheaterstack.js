@@ -8,15 +8,15 @@ const wheaterForLoc = (latitude, longitude, callback) =>{
     request({
         url: wheaterUrl+latitude+','+longitude,
         json: true
-    }, (error, response)=> {
+    }, (error, {body}={})=> {
         if (error){
             callback('General error', undefined)
-        } else if(response.body.error){
+        } else if(body.error){
             callback('Unable to find location', undefined)
         } else {
             callback(undefined, {
-                wheater_description: response.body.current.weather_descriptions[0], 
-                temperature: response.body.current.temperature
+                wheater_description: body.current.weather_descriptions[0], 
+                temperature: body.current.temperature
             });
         } 
     })

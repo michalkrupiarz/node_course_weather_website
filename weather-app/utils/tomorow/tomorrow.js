@@ -10,7 +10,6 @@ const location = '?location=';
 
 
 const wheaterForLoc = (lat, longt, callback) =>{
-    console.log(baseurl + location +lat +','+ longt + fields + timestep + units + api_key);
     request({
         url: baseurl + location +lat +','+ longt + fields + timestep + units + api_key,
         json: true 

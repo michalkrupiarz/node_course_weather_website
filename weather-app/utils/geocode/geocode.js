@@ -8,16 +8,16 @@ const geocode = (address, callback) =>{
     request({
             url: urlBuilder(address),
             json: true
-        }, (error, response) => {
+        }, (error, {body} = {}) => {
             if (error){
                 callback('General error', undefined)
-            } else if (response.body.matches === null ){
-                callback('Unable to find location', response.body.error.description)
+            } else if (body.matches === null ){
+                callback('Unable to find location', body.error.description)
             } else {
                 callback(undefined, {
-                    place_name: response.body.alt.loc[0].city,
-                    latitude: response.body.alt.loc[0].latt,
-                    longitude: response.body.alt.loc[0].longt
+                    place_name: body.alt.loc[0].city,
+                    latitude: body.alt.loc[0].latt,
+                    longitude: body.alt.loc[0].longt
                 })
             }
         })

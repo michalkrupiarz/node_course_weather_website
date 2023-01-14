@@ -8,20 +8,19 @@ const units = '&units=metric';
 
 
 const wheaterForLoc=( lat, lon, callback) =>{
-    console.log(base_url+latitude+lat+longitude+lon+units+api_key);
     request({
         url: base_url+latitude+lat+longitude+lon+units+api_key,
         json: true
-    }, (error, response)=>{
+    }, (error, {body} = {})=>{
         if (error){
             callback('General error', undefined)
-        } else if(response.body.cod!=200){
+        } else if(body.cod!=200){
             callback('Unable to find location', undefined)
         } else {
             callback(undefined, {
-                main: response.body.weather[0].main,
-                temp: response.body.main.temp,
-                windspeed: response.body.wind.speed
+                main: body.weather[0].main,
+                temp: body.main.temp,
+                windspeed: body.wind.speed
             });
         } 
     })

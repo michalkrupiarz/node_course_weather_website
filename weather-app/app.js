@@ -6,27 +6,69 @@ const weatherstack = require('./utils/weatherstack/wheaterstack.js')
 const tomorrow = require('./utils/tomorow/tomorrow.js')
 const openweathermap = require('./utils/openweathermap/openwheatermap.js')
 
-//weatherstack.forecast('qr213rq', 'qrqrqwe', (error,data)=>{
-// weatherstack.forecast('50.972', '15.665', (error,data)=>{
-//     console.log(error);
-//     console.log(data);
-// })
 
-// geocode.geocode('Mietków', (error,data) => {
-//     console.log('Error', error);
-//     console.log('Data', data);
-// })
 
-// mapbox.geocode('Mietkow', (error,data)=>{
-//     console.log(data);
-// })
 
-// tomorrow.wheaterForLoc('50.972', '16.665', (error,data)=>{
-//     console.log(error);
-//     console.log(data);
-// })
+const place = process.argv[2];
 
-openweathermap.forecast('50.9722066955017', '16.665495467128', (error, data) => {
-    console.log(error);
-    console.log(data);
+mapbox.geocode(place, (error,{latitude, longitude, place_name} = {})=>{
+    if (error){
+        return console.log(error);
+    }
+    openweathermap.forecast(latitude, longitude, (error, forecast) => {
+        if(error){
+            return console.log(error);
+        }
+        console.log(chalk.green.inverse("openweathermap forecast"));
+        console.log(place_name, forecast);
+    })
+    tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
+        if(error){
+            return console.log(error)
+        }
+        console.log(chalk.green.inverse('tommorow forecast'))
+        console.log(place_name, tommorowForecast);
+    })
+
+    
+        weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
+            if(error){
+                return console.log(error);
+            }
+            console.log(chalk.green.inverse("Weatherforecast"));
+            console.log(weatherForecast);
+        
+    })
 })
+
+// mapbox.geocode(place, (error,{latitude, longitude, place_name} = {})=>{
+//     console.log(chalk.red.inverse('mapbox'));
+//     if (error){
+//         return console.log(error);
+//     }
+//     openweathermap.forecast(latitude, longitude, (error, forecast) => {
+//         if(error){
+//             return console.log(error);
+//         }
+//         console.log(chalk.green.inverse("openweathermap forecast"));
+//         console.log(place_name, forecast);
+//     })
+//     tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
+//         if(error){
+//             return console.log(error)
+//         }
+//         console.log(chalk.green.inverse('tommorow forecast'))
+//         console.log(place_name, tommorowForecast);
+//     })
+
+    
+//         weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
+//             if(error){
+//                 return console.log(error);
+//             }
+//             console.log(chalk.green.inverse("Weatherforecast"));
+//             console.log(weatherForecast);
+        
+//     })
+// })
+
