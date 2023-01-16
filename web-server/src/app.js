@@ -1,7 +1,15 @@
 const path = require('path');
 const express = require('express');
+const chalk = require('chalk')
 const hbs = require('hbs');
 const { allowedNodeEnvironmentFlags } = require('process');
+const { response } = require('express');
+
+const geocode = require('./utils/geocode/geocode.js');
+const mapbox = require('./utils/mapbox/mapbox.js');
+const weatherstack = require('./utils/weatherstack/wheaterstack.js')
+const tomorrow = require('./utils/tomorow/tomorrow.js')
+const openweathermap = require('./utils/openweathermap/openwheatermap.js')
 
 const app = express();
 
@@ -42,14 +50,62 @@ app.get('/help', (req,res)=>{
     })
 })
 
-app.get('/forecast', (req,res)=>{
-    res.send({
-        location: 'Mietkow',
-        temperature: '10 degrees'
+app.get('/weather', (req,res)=>{
+    if(!req.query.address){
+        return res.send("No address was provided")
+    }
+    
+    geocode.geocode(req.query.address, (error,{latitude, longitude, place_name} = {})=>{
+        let forecasts = [];
+        if (error){
+            return res.send({
+                error: error
+            });
+        }
+        
+        openweathermap.forecast(latitude, longitude, (error, forecast) => {
+            if(error){
+                return res.send({
+                    error: error
+                });
+            }
+            return res.send({
+                forecastProvider: "openweahtermap forecast",
+                place: place_name,
+                forceast : forecast
+            })            
+        })
+        
+        // tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
+        //     if(error){
+        //         return console.log(error)
+        //     }
+        //     console.log(chalk.green.inverse('tommorow forecast'))
+        //     console.log(place_name, tommorowForecast);
+        // })
+    
+        
+        // weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
+        //     if(error){
+        //         return console.log(error);
+        //     }
+        //     console.log(chalk.green.inverse("Weatherforecast"));
+        //     console.log(weatherForecast);    
+        // })
+         
     })
-    res.render('forecast',{
-        title: 'this is forecast',
-        name: 'Michal'
+    
+})
+
+app.get('/products', (req, res)=>{
+    if(!req.query.search){
+        return res.send({
+            error: 'You must provide search term.'
+        })
+    }
+
+    res.send({
+        products: [] 
     })
 })
 

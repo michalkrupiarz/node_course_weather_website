@@ -11,7 +11,7 @@ const openweathermap = require('./utils/openweathermap/openwheatermap.js')
 
 const place = process.argv[2];
 
-mapbox.geocode(place, (error,{latitude, longitude, place_name} = {})=>{
+geocode.geocode(place, (error,{latitude, longitude, place_name} = {})=>{
     if (error){
         return console.log(error);
     }
@@ -31,13 +31,12 @@ mapbox.geocode(place, (error,{latitude, longitude, place_name} = {})=>{
     })
 
     
-        weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
-            if(error){
-                return console.log(error);
-            }
-            console.log(chalk.green.inverse("Weatherforecast"));
-            console.log(weatherForecast);
-        
+    weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
+        if(error){
+            return console.log(error);
+        }
+        console.log(chalk.green.inverse("Weatherforecast"));
+        console.log(weatherForecast);    
     })
 })
 
