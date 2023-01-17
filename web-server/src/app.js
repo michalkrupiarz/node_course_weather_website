@@ -50,11 +50,7 @@ app.get('/help', (req,res)=>{
     })
 })
 
-app.get('/weather', (req,res)=>{
-    if(!req.query.address){
-        return res.send("No address was provided")
-    }
-    
+app.get('/weather', (req,res)=>{   
     geocode.geocode(req.query.address, (error,{latitude, longitude, place_name} = {})=>{
         let forecasts = [];
         if (error){
@@ -64,6 +60,7 @@ app.get('/weather', (req,res)=>{
         }
         
         openweathermap.forecast(latitude, longitude, (error, forecast) => {
+            console.log(place_name);
             if(error){
                 return res.send({
                     error: error

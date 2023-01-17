@@ -9,15 +9,18 @@ const geocode = (address, callback) =>{
             url: urlBuilder(address),
             json: true
         }, (error, {body} = {}) => {
+            
             if (error){
                 callback('General error', undefined)
             } else if (body.matches === null ){
                 callback('Unable to find location', body.error.description)
             } else {
+                console.log(body);
                 callback(undefined, {
-                    place_name: body.alt.loc[0].city,
-                    latitude: body.alt.loc[0].latt,
-                    longitude: body.alt.loc[0].longt
+                    
+                    place_name: body.city,
+                    latitude: body.latt,
+                    longitude: body.longt
                 })
             }
         })
