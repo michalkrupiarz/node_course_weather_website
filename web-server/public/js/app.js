@@ -23,8 +23,8 @@ weatherForm.addEventListener('submit', (e)=>{
                 messageOne.textContent = 'Error';
                return messageTwo.textContent = data.error;
             }
-            messageOne.textContent = "Forecast" 
-            messageTwo.textContent = data.forceast.main;
+            messageOne.textContent = "Forecast"                           
+            messageTwo.textContent = JSON.stringify(data);
             console.log(data);
         })
     });
