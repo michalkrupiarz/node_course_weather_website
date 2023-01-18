@@ -9,7 +9,8 @@ const geocode = require('./utils/geocode/geocode.js');
 const mapbox = require('./utils/mapbox/mapbox.js');
 const weatherstack = require('./utils/weatherstack/wheaterstack.js')
 const tomorrow = require('./utils/tomorow/tomorrow.js')
-const openweathermap = require('./utils/openweathermap/openwheatermap.js')
+const openweathermap = require('./utils/openweathermap/openwheatermap.js');
+const e = require('express');
 
 const app = express();
 
@@ -51,44 +52,51 @@ app.get('/help', (req,res)=>{
 })
 
 app.get('/weather', (req,res)=>{   
-    geocode.geocode(req.query.address, (error,{latitude, longitude, place_name} = {})=>{
+    geocode.geocode(req.query.address, (error, {latitude, longitude, place_name} = {})=>{
+        const provider = req.query.provider;
         let forecasts = [];
         if (error){
             return res.send({
                 error: error
             });
         }
-        
-        openweathermap.forecast(latitude, longitude, (error, forecast) => {
-            console.log(place_name);
-            if(error){
+        if(provider==='openweathermap'){
+            openweathermap.forecast(latitude, longitude, (error, forecast) => {
+                if(error){
+                    return res.send({
+                        error: error
+                    });
+                }
                 return res.send({
-                    error: error
-                });
-            }
-            return res.send({
-                forecastProvider: "openweahtermap forecast",
-                place: place_name,
-                forceast : forecast
-            })            
-        })
-        
-        // tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
-        //     if(error){
-        //         return console.log(error)
-        //     }
-        //     console.log(chalk.green.inverse('tommorow forecast'))
-        //     console.log(place_name, tommorowForecast);
-        // })
-    
-        
-        // weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
-        //     if(error){
-        //         return console.log(error);
-        //     }
-        //     console.log(chalk.green.inverse("Weatherforecast"));
-        //     console.log(weatherForecast);    
-        // })
+                    place: place_name,
+                    forceast : forecast
+                })            
+            })
+        } else if (provider==='tommorow'){
+            tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
+                if(error){
+                    return req.send({
+                        error: error
+                    })
+                }
+                return res.send({
+                    place: place_name,
+                    forecast: tommorowForecast
+                })
+            })
+        } else if (provider === 'weatherstack'){
+            weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
+                if(error){
+                    return req.send({
+                        error: error
+                    })
+                }
+                return res.send({
+                    place: place_name,
+                    forceast : weatherForecast
+                }) 
+            })
+        }             
          
     })
     

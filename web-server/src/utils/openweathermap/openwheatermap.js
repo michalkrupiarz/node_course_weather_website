@@ -7,13 +7,13 @@ const longitude = '&lon=';
 const units = '&units=metric';
 
 
-const wheaterForLoc=( lat, lon, callback) =>{
+const wheaterForLoc=( lat, lon,  callback) =>{
     request({
         url: base_url+latitude+lat+longitude+lon+units+api_key,
         json: true
     }, (error, {body} = {})=>{
         if (error){
-            callback('General error', undefined)
+            callback('General error',  undefined)
         } else if(body.cod!=200){
             callback('Unable to find location', undefined)
         } else {

@@ -5,6 +5,9 @@ const baseUrl = 'https://geocode.xyz/';
 const api_key = 'auth=445831585840255419331x79355'; 
 
 const geocode = (address, callback) =>{
+    if (address.length < 1) {
+        address = 'Mietków';
+    }
     request({
             url: urlBuilder(address),
             json: true
@@ -15,10 +18,8 @@ const geocode = (address, callback) =>{
             } else if (body.matches === null ){
                 callback('Unable to find location', body.error.description)
             } else {
-                console.log(body);
-                callback(undefined, {
-                    
-                    place_name: body.city,
+                callback(undefined, {                   
+                    place_name: body.standard.city,
                     latitude: body.latt,
                     longitude: body.longt
                 })

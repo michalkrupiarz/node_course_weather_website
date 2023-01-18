@@ -1,32 +1,41 @@
 console.log('client side javascript')
 
 
-const weatherForm = document.querySelector('form');
+const openwheatermapForm = document.querySelector('#openweathermap');
+const tommorowForm = document.querySelector('#tommorow');
+const weeatherstackForm = document.querySelector('#weatherstack');
 
-const search = document.querySelector('input');
-
-const messageOne = document.querySelector('#msg1');
-const messageTwo = document.querySelector('#msg2');
-
-weatherForm.addEventListener('submit', (e)=>{
-    messageOne.textContent = '';
+openwheatermapForm.addEventListener('submit', (e)=>{
     e.preventDefault();
-    let location = search.value;
-    if (location.length <1 ){
-        location = 'Mietków';
-    }
-    messageOne.textContent = 'Loading'
-    fetch('/weather?address='+location)
-    .then((response) => {
-        response.json().then((data) => {
-            if(data.error){
-                messageOne.textContent = 'Error';
-               return messageTwo.textContent = data.error;
-            }
-            messageOne.textContent = "Forecast"                           
-            messageTwo.textContent = JSON.stringify(data);
-            console.log(data);
-        })
-    });
-
+    fetchForecastFromProvider(openwheatermapForm.querySelector('input').value, 'openweathermap', openwheatermapForm)
 })
+
+tommorowForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    fetchForecastFromProvider(tommorowForm.querySelector('input').value, 'tommorow', tommorowForm)
+    
+})
+
+weeatherstackForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    fetchForecastFromProvider(weeatherstackForm.querySelector('input').value, 'weatherstack', weeatherstackForm)
+})
+
+function fetchForecastFromProvider(location, provider, form){
+    const label = form.querySelector('p[name="label"]');
+    const forecast = form.querySelector('p[name="forecast"]');
+
+    label.textContent = 'Loading...';
+    fetch('/weather?address='+location+'&provider='+provider)
+        .then((response) => {
+            response.json().then((data) => {
+                if (data.error){
+                    label.textContent = "Error";
+                    return forecast.textContent = data.error; 
+                }
+                label.textContent = 'Forecast';
+                return forecast.textContent = JSON.stringify(data); 
+            })
+        }
+    )
+}

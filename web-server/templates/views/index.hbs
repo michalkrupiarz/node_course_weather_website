@@ -8,13 +8,30 @@
         </head>
         <body>
             <div class="main-content">
+               
                 {{>header}}
-                <p>Use this to get your weather.</p>
-                <form>
+                <p>Use this to get your weather from openweathermap.</p>
+                <form id="openweathermap">
                     <input placeholder="Mietków">
                     <button>Search</button>
-                    <p id="msg1"></p>
-                    <p id="msg2"></p>
+                    <p name="label"></p>
+                    <p name="forecast"></p>
+                </form>
+                <hr></hr>
+                <p>Use this to get your weather from tommorow.</p>
+                <form id="tommorow">
+                    <input placeholder="Mietków">
+                    <button>Search</button>
+                    <p name="label"></p>
+                    <p name="forecast"></p>
+                </form>
+                <hr></hr>
+                <p>Use this to get your weather from weatherstack.</p>
+                <form id="weatherstack">
+                    <input placeholder="Mietków">
+                    <button>Search</button>
+                    <p name="label"></p>
+                    <p name="forecast"></p>
                 </form>
             </div>
             
