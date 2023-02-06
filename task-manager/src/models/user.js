@@ -42,12 +42,18 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    lastLoginAt:{
+        type: Date,
+        required: true
+    },
     tokens:[{
         token: {
             type: String,
             required: true
         }
     }]
+},{
+    timestamps: true
 })
 
 userSchema.virtual('tasks', {
@@ -69,6 +75,8 @@ userSchema.methods.generateAuthToken = async function (){
     const user = this;    
     const token = jwt.sign({_id: user._id.toString()}, 'thisismynewcourse', {expiresIn: '1 hours'})
     user.tokens = user.tokens.concat({token})
+    const now = Date.now();
+    user.lastLoginAt = now;
     await user.save();
     return token;
 }
