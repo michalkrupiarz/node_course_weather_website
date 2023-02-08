@@ -15,9 +15,44 @@ router.post('/tasks', auth, async (req,res) => {
     }
 })
 
+//get /tasks?completed=false
+//limit //skip
+//tasks?limit=10&skip=0
+//get /tasks?sortBy=createAt:asc
+
 router.get('/tasks', auth, async (req,res) => {
+    const match = {}
+    const sort = {}
+    if (req.query.completed){
+        match.completed = req.query.completed === 'true'
+    }
+    
+    if (req.query.sortBy){
+        const parts = req.query.sortBy.split(':')
+        sort[parts[0]] = parts[1].toLowerCase() === 'desc' ? -1 : 1
+    }
+
     try{
-        res.send(await Task.find({owner: req.user._id}))
+        await req.user.populate({
+            path: 'tasks',
+            match,
+            options: {
+                limit: parseInt(req.query.limit),
+                skip: parseInt(req.query.skip),
+                sort
+            } 
+        })
+        if(req.user.tasks.length<1){
+            res.send("No tasks found");
+        } else {
+            res.send({
+                tasksFound : {
+                    count: req.user.tasks.length,
+                    tasks: req.user.tasks
+                }
+            })
+        }
+        
     } catch (e) {
         res.status(500).send(e)
     }
