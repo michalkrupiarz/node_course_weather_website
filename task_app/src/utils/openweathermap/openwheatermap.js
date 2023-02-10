@@ -1,6 +1,5 @@
 const request = require('request');
-const request = require('axios');
-const { default: axios } = require('axios');
+const axios = require('axios');
 
 const api_key = '&appid=8165e1cebb418caf53edf6c4800aa8fe'
 const base_url = 'https://api.openweathermap.org/data/2.5/weather';
