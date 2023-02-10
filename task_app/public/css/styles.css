@@ -1,17 +1,18 @@
-body {
+    body {
     color: #333333;
     font-family: arial;
-    max-width: 1000px;
+    
     margin: 0 auto;
     padding: 0 16px;
-
+    
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
 .main-content {
-    flex-grow: 1;
+    display: flex;
+    flex: 1;
 }
 
 footer {
@@ -19,11 +20,30 @@ footer {
    border-top: 1px solid #eeeeee;
    margin-top: 16px;
    padding: 16px 0;
+   border-color: black;
+   
 }
 
 header {
-    margin-top: 16px;
+    
     margin-top: 48px;
+    border-color: black;
+    
+}
+
+.menu {
+    order: -1;
+    flex: 0 0 20vw;
+    background: beige;
+}
+
+.calendar {
+    flex: 0 0 20vw;
+    background: beige;
+}
+
+.content {
+    flex: 1;
 }
 
 h1 {

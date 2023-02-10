@@ -7,26 +7,6 @@ const latitude ='?lat=';
 const longitude = '&lon=';
 const units = '&units=metric';
 
-
-const wheaterForLoc2=( lat, lon,  callback) =>{
-    request({
-        url: base_url+latitude+lat+longitude+lon+units+api_key,
-        json: true
-    }, (error, {body} = {})=>{
-        if (error){
-            callback('General error',  undefined)
-        } else if(body.cod!=200){
-            callback('Unable to find location', undefined)
-        } else {
-            callback(undefined, {
-                main: body.weather[0].main,
-                temp: body.main.temp,
-                windspeed: body.wind.speed
-            });
-        } 
-    })
-}
-
 const wheaterForLoc = async(lat, lon) => {
     try{
         const req = await axios.get(base_url+latitude+lat+longitude+lon+units+api_key) 
