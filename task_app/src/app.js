@@ -5,6 +5,7 @@ const { allowedNodeEnvironmentFlags } = require('process');
 const { response } = require('express');
 
 const weatherRouter = require('./routers/weather')
+const baseRouter = require('./routers/base')
 
 const geocode = require('./utils/geocode/geocode.js');
 const mapbox = require('./utils/mapbox/mapbox.js');
@@ -29,114 +30,7 @@ hbs.registerPartials(partialPath);
 app.use(express.static(staticPath));
 
 app.use(weatherRouter)
-
-app.get('', (req,res)=>{
-    res.render('index',{
-        title: 'Wheater app changed by me',
-        createdBy: 'Michal',
-        name: 'Michal'
-    })
-})
-
-app.get('/about', (req,res)=>{
-    res.render('about',{
-        title: 'About me',
-        name: 'Michal'
-
-    })
-})
-
-
-app.get('/help', (req,res)=>{
-    res.render('help',{
-        title: 'This is title of help page',
-        msg2: 'do not resist.',
-        name: 'Michal'
-    })
-})
-
-
-// app.get('/weather', async (req,res)=>{   
-//     const provider = req.query.provider;
-//     //const loc = await geocode.location(req.query.address);
-//     const loc = await mapbox.geocode(req.query.address);
-//     if(provider === 'openweathermap'){
-//         const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
-//         return res.send({
-//             place: loc.placeName,
-//             forceast : forecast
-//         })        
-//     }
-    //     if(provider==='openweathermap'){
-    //         openweathermap.forecast(latitude, longitude, (error, forecast) => {
-    //             if(error){
-    //                 return res.send({
-    //                     error: error
-    //                 });
-    //             }
-    //             return res.send({
-    //                 place: place_name,
-    //                 forceast : forecast
-    //             })            
-    //         })
-    //     } else if (provider==='tommorow'){
-    //         tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
-    //             if(error){
-    //                 return req.send({
-    //                     error: error
-    //                 })
-    //             }
-    //             return res.send({
-    //                 place: place_name,
-    //                 forecast: tommorowForecast
-    //             })
-    //         })
-    //     } else if (provider === 'weatherstack'){
-    //         weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
-    //             if(error){
-    //                 return req.send({
-    //                     error: error
-    //                 })
-    //             }
-    //             return res.send({
-    //                 place: place_name,
-    //                 forceast : weatherForecast
-    //             }) 
-    //         })
-    //     }             
-         
-    // })
-    
-//})
-
-app.get('/products', (req, res)=>{
-    if(!req.query.search){
-        return res.send({
-            error: 'You must provide search term.'
-        })
-    }
-
-    res.send({
-        products: [] 
-    })
-})
-
-app.get('/help/*', (req,res)=>{
-    res.render('pageNotFound',{
-        title: 'Sub page of help was not found.',
-        name: 'Michal',
-        errorMessage: 'Help does not have the article you are looking for'
-    })
-})
-
-app.get('*', (req,res)=>{
-    res.render('pageNotFound',{
-        title: 'Page not found',
-        name: 'Michal',
-        errorMessage: 'Page on server was not found'
-    })
-})
-
+app.use(baseRouter)
 
 app.listen(3000, ()=>{
     console.log('Server is up on port 3000 yeah');

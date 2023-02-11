@@ -22,3 +22,56 @@ router.get('/weather', async (req,res)=>{
 })
 
 module.exports = router
+
+// app.get('/weather', async (req,res)=>{   
+//     const provider = req.query.provider;
+//     //const loc = await geocode.location(req.query.address);
+//     const loc = await mapbox.geocode(req.query.address);
+//     if(provider === 'openweathermap'){
+//         const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
+//         return res.send({
+//             place: loc.placeName,
+//             forceast : forecast
+//         })        
+//     }
+    //     if(provider==='openweathermap'){
+    //         openweathermap.forecast(latitude, longitude, (error, forecast) => {
+    //             if(error){
+    //                 return res.send({
+    //                     error: error
+    //                 });
+    //             }
+    //             return res.send({
+    //                 place: place_name,
+    //                 forceast : forecast
+    //             })            
+    //         })
+    //     } else if (provider==='tommorow'){
+    //         tomorrow.wheaterForLoc(latitude, longitude, (error,tommorowForecast)=>{
+    //             if(error){
+    //                 return req.send({
+    //                     error: error
+    //                 })
+    //             }
+    //             return res.send({
+    //                 place: place_name,
+    //                 forecast: tommorowForecast
+    //             })
+    //         })
+    //     } else if (provider === 'weatherstack'){
+    //         weatherstack.forecast(latitude, longitude, (error,weatherForecast)=>{
+    //             if(error){
+    //                 return req.send({
+    //                     error: error
+    //                 })
+    //             }
+    //             return res.send({
+    //                 place: place_name,
+    //                 forceast : weatherForecast
+    //             }) 
+    //         })
+    //     }             
+         
+    // })
+    
+//})
