@@ -3,16 +3,12 @@ const express = require('express');
 const hbs = require('hbs');
 const { allowedNodeEnvironmentFlags } = require('process');
 const { response } = require('express');
+require('./db/mongoose')
+
 
 const weatherRouter = require('./routers/weather')
 const baseRouter = require('./routers/base')
-
-const geocode = require('./utils/geocode/geocode.js');
-const mapbox = require('./utils/mapbox/mapbox.js');
-const weatherstack = require('./utils/weatherstack/wheaterstack.js')
-const tomorrow = require('./utils/tomorow/tomorrow.js')
-const openweathermap = require('./utils/openweathermap/openwheatermap.js');
-
+const userRouter = require('./routers/user')
 
 const app = express();
 
@@ -29,8 +25,11 @@ hbs.registerPartials(partialPath);
 //setup static direcotry to serve
 app.use(express.static(staticPath));
 
+app.use(express.json());
+
 app.use(weatherRouter)
 app.use(baseRouter)
+app.use(userRouter)
 
 app.listen(3000, ()=>{
     console.log('Server is up on port 3000 yeah');
