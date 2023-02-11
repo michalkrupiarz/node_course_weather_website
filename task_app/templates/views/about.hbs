@@ -6,14 +6,14 @@
             <title>About</title>    
         </head>
         <body>
+            {{>header}} 
             <div class="main-content">
-             {{>header}} 
-            
-               
-                <img src="./img/Antyradio.jpeg"/>                       
-            
-            
-
+                {{>menu}}
+                <div class="content">
+                    <img src="./img/Antyradio.jpeg"/>   
+                </div>                                        
+                        
+                {{>calendar}}
             </div>   
             {{>footer}}    
          </body>

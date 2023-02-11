@@ -55,10 +55,6 @@ app.get('/weather', async (req,res)=>{
     const provider = req.query.provider;
     const loc = await geocode.location(req.query.address);
 
-    // return res.send({
-    //     place: loc,
-    //     forecast: provider
-    // })
     if(provider === 'openweathermap'){
         const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
         return res.send({
