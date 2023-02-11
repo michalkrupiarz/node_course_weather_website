@@ -33,9 +33,39 @@ function fetchForecastFromProvider(location, provider, form){
                     label.textContent = "Error";
                     return forecast.textContent = data.error; 
                 }
+                
                 label.textContent = 'Forecast';
-                return forecast.textContent = JSON.stringify(data); 
+                const weather= data.forceast.weather[0];
+                const temp = data.forceast.main;
+                console.log(data)
+                document.querySelector("#menuForecast").textContent='Forecast';
+                document.querySelector("#place").textContent = JSON.stringify(location);
+                document.querySelector("#typeOfWeather").textContent = JSON.stringify(weather.main)
+                    +' ('+JSON.stringify(weather.description)+')';
+                document.querySelector("#temp").textContent = JSON.stringify(temp.temp);
+                document.querySelector("#feelsLike").textContent = JSON.stringify(temp.feels_like);
+                document.querySelector("#tempMin").textContent = JSON.stringify(temp.temp_min);
+                document.querySelector("#tempMax").textContent = JSON.stringify(temp.temp_max);
+                document.querySelector("#pressure").textContent = JSON.stringify(temp.pressure);
+                document.querySelector("#humidity").textContent = JSON.stringify(temp.humidity);
+                document.querySelector("#visibility").textContent = JSON.stringify(data.forceast.visibility);
+                document.querySelector("#windSpeed").textContent = JSON.stringify(data.forceast.wind.speed);
+                document.querySelector("#sunrise").textContent = JSON.stringify(convertTime(data.forceast.sys.sunrise));
+                document.querySelector("#sunset").textContent = JSON.stringify(convertTime(data.forceast.sys.sunset));
+                return forecast.textContent = JSON.stringify(data.forcast); 
             })
         }
     )
+
+    function convertTime(time) {
+        const date = new Date(time*1000)
+        return date.toLocaleDateString("en-UK", {
+            timeZone: "Europe/Berlin",
+            hour: "2-digit",
+            minute: "2-digit",
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        })
+    }
 }

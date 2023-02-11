@@ -5,6 +5,7 @@ const baseUrl = 'https://geocode.xyz/';
 const api_key = 'auth=445831585840255419331x79355'; 
 
 const location = async (address) => {
+    console.log(urlBuilder(address))
     try {
         const req = await axios.get(urlBuilder(address))
             .catch(function(error){
@@ -23,7 +24,6 @@ const location = async (address) => {
         if (req.data.matches === null){
             return ({error: 'Unable to find location'})
         }
-
         return {placeName: req.data.alt.loc[0].city,
                 lattitude: req.data.alt.loc[0].latt,
                 longitude: req.data.alt.loc[0].longt}

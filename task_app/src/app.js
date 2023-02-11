@@ -43,6 +43,13 @@ app.get('/about', (req,res)=>{
     })
 })
 
+app.get('/test', (req,res)=>{
+    res.render('test_Layout',{
+        title: 'Test Layout',
+        name: 'Michal'
+    })
+})
+
 app.get('/help', (req,res)=>{
     res.render('help',{
         title: 'This is title of help page',
@@ -51,10 +58,18 @@ app.get('/help', (req,res)=>{
     })
 })
 
+app.get('/testPartial', (req,res)=>{
+    res.render('testPartial',{
+        title: 'test partial without changing',
+        name: 'change',
+        path: '/content'
+    })
+})
+
 app.get('/weather', async (req,res)=>{   
     const provider = req.query.provider;
-    const loc = await geocode.location(req.query.address);
-
+    //const loc = await geocode.location(req.query.address);
+    const loc = await mapbox.geocode(req.query.address);
     if(provider === 'openweathermap'){
         const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
         return res.send({
