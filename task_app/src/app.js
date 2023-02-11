@@ -3,7 +3,8 @@ const express = require('express');
 const hbs = require('hbs');
 const { allowedNodeEnvironmentFlags } = require('process');
 const { response } = require('express');
-const router = new express.Router()
+
+const weatherRouter = require('./routers/weather')
 
 const geocode = require('./utils/geocode/geocode.js');
 const mapbox = require('./utils/mapbox/mapbox.js');
@@ -27,6 +28,8 @@ hbs.registerPartials(partialPath);
 //setup static direcotry to serve
 app.use(express.static(staticPath));
 
+app.use(weatherRouter)
+
 app.get('', (req,res)=>{
     res.render('index',{
         title: 'Wheater app changed by me',
@@ -43,12 +46,6 @@ app.get('/about', (req,res)=>{
     })
 })
 
-app.get('/test', (req,res)=>{
-    res.render('test_Layout',{
-        title: 'Test Layout',
-        name: 'Michal'
-    })
-})
 
 app.get('/help', (req,res)=>{
     res.render('help',{
@@ -58,25 +55,18 @@ app.get('/help', (req,res)=>{
     })
 })
 
-app.get('/testPartial', (req,res)=>{
-    res.render('testPartial',{
-        title: 'test partial without changing',
-        name: 'change',
-        path: '/content'
-    })
-})
 
-app.get('/weather', async (req,res)=>{   
-    const provider = req.query.provider;
-    //const loc = await geocode.location(req.query.address);
-    const loc = await mapbox.geocode(req.query.address);
-    if(provider === 'openweathermap'){
-        const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
-        return res.send({
-            place: loc.placeName,
-            forceast : forecast
-        })        
-    }
+// app.get('/weather', async (req,res)=>{   
+//     const provider = req.query.provider;
+//     //const loc = await geocode.location(req.query.address);
+//     const loc = await mapbox.geocode(req.query.address);
+//     if(provider === 'openweathermap'){
+//         const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
+//         return res.send({
+//             place: loc.placeName,
+//             forceast : forecast
+//         })        
+//     }
     //     if(provider==='openweathermap'){
     //         openweathermap.forecast(latitude, longitude, (error, forecast) => {
     //             if(error){
@@ -117,7 +107,7 @@ app.get('/weather', async (req,res)=>{
          
     // })
     
-})
+//})
 
 app.get('/products', (req, res)=>{
     if(!req.query.search){
