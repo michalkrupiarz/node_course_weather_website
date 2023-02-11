@@ -27,9 +27,10 @@ app.use(express.static(staticPath));
 
 app.use(express.json());
 
+app.use(userRouter)
 app.use(weatherRouter)
 app.use(baseRouter)
-app.use(userRouter)
+
 
 app.listen(3000, ()=>{
     console.log('Server is up on port 3000 yeah');
