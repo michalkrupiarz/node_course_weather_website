@@ -14,8 +14,10 @@ loginForm.addEventListener('submit', (e)=> {
     }).then((response) => {
         response.json().then((data) => {
             if(data.error){
+               console.log(data.error)
                return document.querySelector("#errorMessage").textContent = JSON.stringify(data.error);
             } 
+            console.log(data)
             window.location.href = "/index"
         })
     }).catch (error => {
