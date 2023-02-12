@@ -29,7 +29,6 @@ router.post('/users/login', async (req, res) => {
             httpOnly: false,
             sameSite: "strict"
           });
-        console.log(token)
         res.send({user, token});
     } catch (e){
         res.status(400).send({error: e.message});
