@@ -26,7 +26,7 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken();
         req.session.token = token;
         res.cookie("token", token, {
-            httpOnly: true,
+            httpOnly: false,
             sameSite: "strict"
           });
         console.log(token)

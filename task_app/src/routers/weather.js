@@ -5,10 +5,11 @@ const mapbox = require('../utils/mapbox/mapbox.js');
 const weatherstack = require('../utils/weatherstack/wheaterstack.js')
 const tomorrow = require('../utils/tomorow/tomorrow.js')
 const openweathermap = require('../utils/openweathermap/openwheatermap.js');
+const auth = require('../middleware/auth')
 // const Task = require('../models/task')
 // const auth = require('../middleware/auth')
 
-router.get('/weather', async (req,res)=>{   
+router.get('/weather', auth, async (req,res)=>{   
     const provider = req.query.provider;
     //const loc = await geocode.location(req.query.address);
     const loc = await mapbox.geocode(req.query.address);

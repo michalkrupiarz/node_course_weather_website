@@ -1,5 +1,6 @@
 console.log('client side javascript')
 
+const doc = document;
 
 const openwheatermapForm = document.querySelector('#openweathermap');
 const tommorowForm = document.querySelector('#tommorow');
@@ -24,9 +25,13 @@ weeatherstackForm.addEventListener('submit', (e) => {
 function fetchForecastFromProvider(location, provider, form){
     const label = form.querySelector('p[name="label"]');
     const forecast = form.querySelector('p[name="forecast"]');
-
+    const token = getTokenFromCookie(doc);
     label.textContent = 'Loading...';
-    fetch('/weather?address='+location+'&provider='+provider)
+    fetch('/weather?address='+location+'&provider='+provider , {
+        headers: {
+            "Authorization": 'Bearer '+token
+        }
+    })
         .then((response) => {
             response.json().then((data) => {
                 if (data.error){
@@ -56,17 +61,29 @@ function fetchForecastFromProvider(location, provider, form){
             })
         }
     )
-
-    function convertTime(time) {
-        const date = new Date(time*1000)
-        return date.toLocaleDateString("en-UK", {
-            timeZone: "Europe/Berlin",
-            hour: "2-digit",
-            minute: "2-digit",
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric"
-        })
-    }
 }
+
+function convertTime(time) {
+    const date = new Date(time*1000)
+    return date.toLocaleDateString("en-UK", {
+        timeZone: "Europe/Berlin",
+        hour: "2-digit",
+        minute: "2-digit",
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    })
+}
+
+function getTokenFromCookie(document) {
+    const cookies = document.cookie.split(";");
+    for (const cookie of cookies){
+        const [name, value ] = cookie.split("=");
+        if (name.trim() === "token"){
+            return value;
+        }
+    }
+    return null;
+}
+
 
