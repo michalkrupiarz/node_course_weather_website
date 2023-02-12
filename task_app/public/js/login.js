@@ -2,8 +2,6 @@ const loginForm = document.querySelector('#loginForm');
 
 loginForm.addEventListener('submit', (e)=> {
     e.preventDefault();
-    console.log(loginForm.querySelector('#login').value);
-    console.log(loginForm.querySelector('#password').value);
     fetch('/users/login',{
         method: 'POST',
         headers: {
@@ -13,14 +11,14 @@ loginForm.addEventListener('submit', (e)=> {
             login : loginForm.querySelector('#login').value,
             password: loginForm.querySelector('#password').value
         })
-    })
-    .then((response) => {
-        console.log(response);
+    }).then((response) => {
         response.json().then((data) => {
-            // if(data.error){
-            //     console.log('We have error');
-            // }
-            console.log(data)
+            if(data.error){
+               return document.querySelector("#errorMessage").textContent = JSON.stringify(data.error);
+            } 
+            window.location.href = "/index"
         })
+    }).catch (error => {
+        console.log(error.error)
     })
 })
