@@ -69,3 +69,4 @@ function fetchForecastFromProvider(location, provider, form){
         })
     }
 }
+

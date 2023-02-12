@@ -26,7 +26,8 @@ router.post('/users/login', async (req, res) => {
         const token = await user.generateAuthToken();
         res.send({user, token});
     } catch (e){
-        res.status(400).send({error: e});
+        console.log('This is error', e.message);
+        res.status(400).send(e.message);
     }
 })
 
@@ -53,7 +54,6 @@ router.post('/users/logoutAll', auth, async(req, res)=>{
 })
 
 router.get('/users/me', auth, async (req,res) => {
-    console.log('is this even here')
     res.send(req.user)    
 })
 

@@ -89,9 +89,7 @@ userSchema.statics.findByCredentials = async (login, password) => {
         if(!isMatch){
             throw new Error('Unable to login')
         }
-
         return user
-
     } catch (e){
         throw new Error('Something went wrong')
     }

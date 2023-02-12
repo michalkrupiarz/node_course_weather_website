@@ -2,6 +2,14 @@ const express = require('express')
 const router = new express.Router()
 
 router.get('', (req,res)=>{
+    res.render('loginPage',{
+        title: 'Wheater app changed by me',
+        createdBy: 'Michal',
+        name: 'Michal'
+    })
+})
+
+router.get('/index', (req,res)=>{
     res.render('index',{
         title: 'Wheater app changed by me',
         createdBy: 'Michal',
