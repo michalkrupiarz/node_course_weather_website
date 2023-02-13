@@ -54,6 +54,13 @@ router.get('/help/*', (req,res)=>{
     })
 })
 
+router.get('/registerUser', (req,res)=>{
+    res.render('registerUser',{
+        title: "Registration",
+        name: 'Michal'
+    })
+})
+
 router.get('*', (req,res)=>{
     res.render('pageNotFound',{
         title: 'Page not found',
