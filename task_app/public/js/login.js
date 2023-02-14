@@ -18,9 +18,20 @@ loginForm.addEventListener('submit', (e)=> {
                 return document.querySelector("#errorMessage").textContent = JSON.stringify(data.error);
             } 
             console.log(data)
-            window.location.href = "/index"
         })
     }).catch (error => {
-        console.log(error.error)
+        console.log("is this even here", error.error)
+        window.location.href = "/"
     })
 })
+
+function getTokenFromCookie() {
+    const cookies = document.cookie.split(";");
+    for (const cookie of cookies){
+        const [name, value ] = cookie.split("=");
+        if (name.trim() === "token"){
+            return value;
+        }
+    }
+    return null;
+}
