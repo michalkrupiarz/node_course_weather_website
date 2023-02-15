@@ -18,10 +18,9 @@ loginForm.addEventListener('submit', (e)=> {
                 console.log("this is data error", data.error)
                 return document.querySelector("#errorMessage").textContent = JSON.stringify(data.error);
             } 
-            console.log(data)
-            window.location.href = "/index"
+            location.assign('/index')
         })
     }).catch (error => {
-        console.log(error.error)
+        //error handling
     })
 })

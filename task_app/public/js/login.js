@@ -13,15 +13,14 @@ loginForm.addEventListener('submit', (e)=> {
         })
     }).then((response) => {
         if(response.status !=200){
-            console.log('sth');
+            response.json().then((data) => {
+                document.querySelector('#errorMessage').textContent = JSON.stringify(data.error);
+            })
         } else {
-        console.log('Response anything');
-        //window.location = '/index';
         location.assign('/index')
         }
     }).catch (error => {
-        console.log("is this even here", error.error)
-        window.location.href = "/"
+        document.querySelector('#errorMessage').textContent= JSON.stringify(error.message);
     })
 })
 

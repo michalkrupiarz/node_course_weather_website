@@ -39,7 +39,6 @@ function fetchForecastFromProvider(location, provider, form){
             }
             response.json().then((data) => {
                 if (data.error){
-                    console.log("this is data resp", data)
                     label.textContent = "Error";
                     return forecast.textContent = data.error; 
                 }

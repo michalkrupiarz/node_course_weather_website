@@ -23,14 +23,12 @@ router.get('/login', (req,res) => {
 router.get('/index', cookieAuth,(req,res)=>{
     
     try {
-        console.log('i`m in index')
         res.render('index',{
             title: 'Wheater app changed by me',
             createdBy: 'Michal',
             name: 'Michal'
         })
     } catch (error) {
-        console.log('error z try catch: ', error)
         res.status(401).send({error: e.message});
     }
 })

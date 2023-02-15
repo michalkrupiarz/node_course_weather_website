@@ -25,13 +25,13 @@ router.post('/users/login', async (req, res) => {
         const user = await User.findByCredentials(req.body.login, req.body.password)
         const token = await user.generateAuthToken();
         req.session.token = token;
-        console.log('i`m in login, i`ve got token and i put it into the cookie')
         res.cookie("token", token, {
             httpOnly: false,
             sameSite: "strict"
           });
         res.status(302).header('Location', '/index').send({user, token}).end();      
     } catch (e){
+        console.log('tutaj wskoczylem ', e.message)
         res.status(400).send({error: e.message});
     }
 })
