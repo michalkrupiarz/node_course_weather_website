@@ -12,13 +12,13 @@ loginForm.addEventListener('submit', (e)=> {
             password: loginForm.querySelector('#password').value
         })
     }).then((response) => {
-        response.json().then((data) => {
-            if(data.error){
-                console.log("this is data error", data.error)
-                return document.querySelector("#errorMessage").textContent = JSON.stringify(data.error);
-            } 
-            console.log(data)
-        })
+        if(response.status !=200){
+            console.log('sth');
+        } else {
+        console.log('Response anything');
+        //window.location = '/index';
+        location.assign('/index')
+        }
     }).catch (error => {
         console.log("is this even here", error.error)
         window.location.href = "/"

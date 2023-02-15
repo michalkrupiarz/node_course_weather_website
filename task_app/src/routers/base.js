@@ -1,6 +1,8 @@
+const e = require('express')
 const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
+const cookieAuth = require ('../middleware/cookieAuth')
 
 router.get('', (req,res)=>{
     res.render('loginPage',{
@@ -18,18 +20,18 @@ router.get('/login', (req,res) => {
     })
 })
 
-router.get('/index', auth,(req,res)=>{
-    console.log('we are in index');
+router.get('/index', cookieAuth,(req,res)=>{
+    
     try {
+        console.log('i`m in index')
         res.render('index',{
             title: 'Wheater app changed by me',
             createdBy: 'Michal',
             name: 'Michal'
         })
-        console.log('we are in index');
     } catch (error) {
         console.log('error z try catch: ', error)
-        res.status(401).send('Internal server error');
+        res.status(401).send({error: e.message});
     }
 })
 

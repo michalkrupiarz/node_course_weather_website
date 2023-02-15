@@ -5,6 +5,7 @@ const hbs = require('hbs');
 const { allowedNodeEnvironmentFlags } = require('process');
 const { response } = require('express');
 require('./db/mongoose')
+const cookieParser = require('cookie-parser');
 
 
 const weatherRouter = require('./routers/weather')
@@ -37,7 +38,7 @@ app.use(
 app.use(express.static(staticPath));
 
 app.use(express.json());
-
+app.use(cookieParser());
 app.use(userRouter)
 app.use(weatherRouter)
 app.use(baseRouter)
