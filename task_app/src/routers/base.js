@@ -2,7 +2,7 @@ const e = require('express')
 const express = require('express')
 const router = new express.Router()
 const auth = require('../middleware/auth')
-const cookieAuth = require ('../middleware/cookieAuth')
+
 
 router.get('', (req,res)=>{
     res.render('loginPage',{
@@ -20,8 +20,8 @@ router.get('/login', (req,res) => {
     })
 })
 
-router.get('/index', cookieAuth,(req,res)=>{
-    
+router.get('/index', auth,(req,res)=>{
+    console.log('i`m logging in')
     try {
         res.render('index',{
             title: 'Wheater app changed by me',

@@ -13,7 +13,12 @@ router.post('/users', async (req,res) => {
     const user = new User(req.body)
     try{
         const token = await user.generateAuthToken();
-        await user.save()    
+        await user.save()
+        req.session.token = token; 
+        res.cookie("token", token, {
+            httpOnly: false,
+            sameSite: "strict"
+          });   
         res.status(201).send({user, token})
     } catch (e){
         res.status(400).send({error: e.message})
@@ -31,7 +36,6 @@ router.post('/users/login', async (req, res) => {
           });
         res.status(302).header('Location', '/index').send({user, token}).end();      
     } catch (e){
-        console.log('tutaj wskoczylem ', e.message)
         res.status(400).send({error: e.message});
     }
 })

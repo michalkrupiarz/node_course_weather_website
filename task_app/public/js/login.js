@@ -17,7 +17,7 @@ loginForm.addEventListener('submit', (e)=> {
                 document.querySelector('#errorMessage').textContent = JSON.stringify(data.error);
             })
         } else {
-        location.assign('/index')
+            location.assign('/index')
         }
     }).catch (error => {
         document.querySelector('#errorMessage').textContent= JSON.stringify(error.message);

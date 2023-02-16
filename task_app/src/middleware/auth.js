@@ -3,10 +3,10 @@ const User = require('../models/user')
 
 const auth = async (req, res, next) => {
     try {
-        if(!req.header('Authorization')){
-            return res.status(302).header('Location', '/login').end();
+        if(!req.cookies.token){
+            return res.status(302).header('Location', '/login').send({error: 'User not found.'}).end();
         }
-        const token = req.header('Authorization').replace('Bearer ', '');
+        const token = req.cookies.token;
         
         const decoded = jwt.verify(token, 'thisismynewcourse')
         
@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
 
         if (!user){
             console.log('User not found.')
-            return res.status(302).header('Location', '/login').end();
+            return res.status(302).header('Location', '/login').send({error: 'User not found.'}).end();
         }
         req.token = token;
         req.user = user;
