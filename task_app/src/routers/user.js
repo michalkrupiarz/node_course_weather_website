@@ -26,6 +26,7 @@ router.post('/users', async (req,res) => {
 })
 
 router.post('/users/login', async (req, res) => {
+    console.log('doszlo tu w ogole?')
     try {
         const user = await User.findByCredentials(req.body.login, req.body.password)
         const token = await user.generateAuthToken();
@@ -34,7 +35,7 @@ router.post('/users/login', async (req, res) => {
             httpOnly: false,
             sameSite: "strict"
           });
-        res.status(302).header('Location', '/index').send({user, token}).end();      
+        res.status(200).send({user, token});      
     } catch (e){
         res.status(400).send({error: e.message});
     }
@@ -42,6 +43,9 @@ router.post('/users/login', async (req, res) => {
 
 router.post('/users/logout', auth, async (req, res)=>{
     try {
+        console.log('cokies', req.cookie);
+    res.cookie("token", '')
+    console.log(req.cookie);
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
@@ -53,6 +57,7 @@ router.post('/users/logout', auth, async (req, res)=>{
 })
 
 router.post('/users/logoutAll', auth, async(req, res)=>{
+    console.log('is in logout')
     try {
         req.user.tokens = [] ;
         await req.user.save();
@@ -96,6 +101,9 @@ router.delete('/users/me', auth, async (req,res) => {
     
 })
 
+router.get('/users/logout', async (req,res) => {
+    res.semd('sth');
+})
 
 router.post('/users/me/avatar', upload.single('meAvatar'), async(req, res) => {
     res.send()

@@ -1,5 +1,6 @@
 const e = require('express')
 const express = require('express')
+const axios = require('axios');
 const router = new express.Router()
 const auth = require('../middleware/auth')
 
@@ -36,7 +37,6 @@ router.get('/about', (req,res)=>{
     res.render('about',{
         title: 'About me',
         name: 'Michal'
-
     })
 })
 
@@ -73,6 +73,19 @@ router.get('/registerUser', (req,res)=>{
     res.render('registerUser',{
         title: "Registration",
         name: 'Michal'
+    })
+})
+
+router.get('/logout', async (req, res) => {
+    console.log('cokies', req.cookie);
+    res.cookie("token", '')
+    console.log(req.cookie);
+    req.session.destroy(function(err){
+        if(err){
+            console.log({error: err})
+        } else{
+            res.status(200).redirect('login')
+        }
     })
 })
 
