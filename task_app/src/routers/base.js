@@ -76,19 +76,6 @@ router.get('/registerUser', (req,res)=>{
     })
 })
 
-router.get('/logout', async (req, res) => {
-    console.log('cokies', req.cookie);
-    res.cookie("token", '')
-    console.log(req.cookie);
-    req.session.destroy(function(err){
-        if(err){
-            console.log({error: err})
-        } else{
-            res.status(200).redirect('login')
-        }
-    })
-})
-
 router.get('*', (req,res)=>{
     res.render('pageNotFound',{
         title: 'Page not found',
