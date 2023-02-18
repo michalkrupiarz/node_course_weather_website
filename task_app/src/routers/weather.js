@@ -13,6 +13,11 @@ router.get('/weather', auth, async (req,res)=>{
     const provider = req.query.provider;
     //const loc = await geocode.location(req.query.address);
     const loc = await mapbox.geocode(req.query.address);
+    if(loc.error){
+        return res.send({
+            error: loc.error
+        })
+    }
     if(provider === 'openweathermap'){
         const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude) 
         return res.send({

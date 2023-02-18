@@ -35,8 +35,8 @@ function fetchForecastFromProvider(location, provider, form){
         .then((response) => {
             if(response.status===401){
                 console.log('Unathorized.')
-                window.location.href = "/";
-            }
+                location.assign('/index');
+            } 
             response.json().then((data) => {
                 if (data.error){
                     label.textContent = "Error";

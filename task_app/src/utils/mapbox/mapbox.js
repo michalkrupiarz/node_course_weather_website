@@ -11,22 +11,23 @@ const geocode = async(address) => {
                     console.log(error.response.data);
                     console.log(error.response.status);
                     console.log(error.response.headers);
+                    return {error: error.response}
                 } else if (error.request) {
-                    console.log(error.request);
+                    return ({error : error.request});
                 } else {
-                    console.log('Error', error.message);
+                   return ({error: error.message});
                 }
-                console.log(error.config);    
+                return {error: error.config};    
                 }
             )
             if (req.data.features.length === 0){
-                console.log({error: 'Location not found'})
+                return {error: 'Location not found'}
             }
             return {place_name: req.data.features[0].place_name,
                 lattitude: req.data.features[0].center[1],
                 longitude: req.data.features[0].center[0]};
     } catch (e){
-        console.log(e);
+        return {error: e};
     }
 }
 

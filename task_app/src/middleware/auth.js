@@ -5,7 +5,7 @@ const auth = async (req, res, next) => {
     try {
         console.log('i`m in auth')
         if(!req.cookies.token){
-            return res.status(302).header('Location', '/login').send({error: 'User not found.'}).end();
+            return res.status(401).send({error: 'User not found.'}).end();
         }
         const token = req.cookies.token;
         
@@ -15,7 +15,7 @@ const auth = async (req, res, next) => {
 
         if (!user){
             console.log('User not found.')
-            return res.status(302).header('Location', '/login').send({error: 'User not found.'}).end();
+            return res.status(401).send({error: 'User not found.'}).end();
         }
         req.token = token;
         req.user = user;
