@@ -21,7 +21,6 @@ router.get('/login', (req,res) => {
 })
 
 router.get('/index', auth,(req,res)=>{
-    console.log('i`m logging in')
     try {
         res.render('index',{
             title: 'Wheater app changed by me',
@@ -34,7 +33,6 @@ router.get('/index', auth,(req,res)=>{
 })
 
 router.get('/about', (req,res)=>{
-    console.log('czy weszlo w about')
     res.render('about',{
         title: 'About me',
         name: 'Michal'
