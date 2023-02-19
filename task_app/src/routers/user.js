@@ -8,6 +8,7 @@ const multer = require('multer')
 const upload = multer({
     dest: 'avatar'
 })
+const mapbox = require('../utils/mapbox/mapbox.js');
 
 router.post('/users', async (req,res) => {
     const user = new User(req.body)
@@ -103,24 +104,18 @@ router.delete('/users/me', auth, async (req,res) => {
 
 router.post('/users/me/location', auth, async(req, res)=>{
     try {
-        console.log('wszedlem do dodawania lokacji')
-        const loc = req.body.location;
-        console.log('lokacja', loc)
-        console.log('sth', JSON.stringify(req.user))
+        const foundLoc = await mapbox.geocode(req.body.location);
         req.user.locations = req.user.locations.concat({location: {
-            name : loc
-        }})
-        
+            name : foundLoc.place_name,
+            lattitude: foundLoc.lattitude,
+            longitude: foundLoc.longitude
+        }})       
         await req.user.save();
         res.send({user: req.user,
-            loc: loc})
+            loc: foundLoc})
     }catch (e){
         res.status(500).send({error: e})
     }
-})
-
-router.get('/users/logout', async (req,res) => {
-    res.send('sth');
 })
 
 router.post('/users/me/avatar', upload.single('meAvatar'), async(req, res) => {
