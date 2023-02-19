@@ -1,0 +1,30 @@
+<!DOCTYPE htmls>
+<html>
+        <head>
+            <link rel="stylesheet" href="./css/styles.css">
+            <link rel="icon" href="./img/weather.png"> 
+                
+            <title>About</title>    
+        </head>
+        <body>
+            {{>header}} 
+            <div class="main-content">
+                {{>forecast}}
+                <div class="content">
+                    <div>Email address
+                        <p id="email"></p>
+                    </div>
+                    <div>User name
+                        <p id='userName'></p>
+                    </div> 
+                    <div id="locations"> Locations
+
+                    </div>
+                </div>                                        
+                        
+                {{>calendar}}
+            </div>   
+            {{>footer}}    
+         </body>
+         <script src="./js/profile.js"></script> 
+</html>

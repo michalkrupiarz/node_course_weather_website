@@ -101,8 +101,26 @@ router.delete('/users/me', auth, async (req,res) => {
     
 })
 
+router.post('/users/me/location', auth, async(req, res)=>{
+    try {
+        console.log('wszedlem do dodawania lokacji')
+        const loc = req.body.location;
+        console.log('lokacja', loc)
+        console.log('sth', JSON.stringify(req.user))
+        req.user.locations = req.user.locations.concat({location: {
+            name : loc
+        }})
+        
+        await req.user.save();
+        res.send({user: req.user,
+            loc: loc})
+    }catch (e){
+        res.status(500).send({error: e})
+    }
+})
+
 router.get('/users/logout', async (req,res) => {
-    res.semd('sth');
+    res.send('sth');
 })
 
 router.post('/users/me/avatar', upload.single('meAvatar'), async(req, res) => {
