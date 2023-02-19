@@ -44,9 +44,7 @@ router.post('/users/login', async (req, res) => {
 
 router.post('/users/logout', auth, async (req, res)=>{
     try {
-        console.log('cokies', req.cookie);
-    res.cookie("token", '')
-    console.log(req.cookie);
+        res.cookie("token", '')
         req.user.tokens = req.user.tokens.filter((token) => {
             return token.token !== req.token
         })
@@ -115,6 +113,21 @@ router.post('/users/me/location', auth, async(req, res)=>{
             loc: foundLoc})
     }catch (e){
         res.status(500).send({error: e})
+    }
+})
+
+router.delete('/users/me/location/:id', auth, async(req,res) => {
+    try {
+        const index = req.user
+            .locations
+            .findIndex(el => el._id.toString() === req.params.id);
+        if (index !== -1){
+            req.user.locations.splice(index, 1);
+        }
+        await req.user.save()
+        res.send({user: req.user})
+    } catch (error){
+        res.status(500).send({error: error});
     }
 })
 
