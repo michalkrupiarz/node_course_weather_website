@@ -75,16 +75,55 @@ function renderLocArray(locArray, locEl){
 }
 
 function renderElementInLocationArray(element, locEl){
-    const div = document.createElement('div')
-    div.id = element._id
-    div.textContent = JSON.stringify(element)
-    locEl.appendChild(div);
-    const delButton = document.createElement('button');
-    delButton.textContent = 'Delete';
-    div.appendChild(delButton);
+    const mainDiv = document.createElement('div')
+    mainDiv.id = element._id
+    locEl.appendChild(mainDiv);
+
+    const locDiv = document.createElement('div')
+    mainDiv.appendChild(locDiv)
+
+    const nameDiv = document.createElement('div')
+    nameDiv.textContent = element.location.name;
+    nameDiv.setAttribute('data-id', 'locName')
+    locDiv.appendChild(nameDiv)
+
+    const typeDiv = document.createElement('div')
+    typeDiv.textContent = element.location.locType
+    typeDiv.setAttribute('data-id', 'locType')
+    locDiv.appendChild(typeDiv)
+
+    const editButton = document.createElement('button')
+    editButton.textContent = 'Edit'
+    mainDiv.appendChild(editButton)
+    editButton.addEventListener('click', editLocation)
+
+    const delButton = document.createElement('button')
+    delButton.textContent = 'Delete'
+    mainDiv.appendChild(delButton)
     delButton.addEventListener('click', deleteLocation)
 }
 
+function editLocation(event){
+    const buttonClicked = event.target;
+    const idToEdit = (buttonClicked.parentElement.getAttribute('id')).toString()
+    const previousEl = buttonClicked.previousSibling;
+    const insideDivs = previousEl.querySelectorAll('div')
+    
+    insideDivs.forEach( element => {
+        const inputElement = document.createElement("input");
+        inputElement.value = element.textContent
+        for (let i = 0; i <element.attributes.length; i++) {
+            const attr = element.attributes[i];
+            inputElement.setAttribute(attr.name, attr.value);
+        }
+        element.parentNode.replaceChild(inputElement, element)
+    })
+    
+    const buttonSave = document.createElement('button')
+    buttonSave.textContent = 'Save'
+    buttonClicked.parentNode.replaceChild(buttonSave, buttonClicked)
+    buttonSave.addEventListener('click', saveEditedLocation)
+}
 
 function deleteLocation(event){
     const buttonClicked = event.target;
@@ -113,4 +152,15 @@ function deleteLocationCall(id){
             })
         }  
     }) 
+}
+
+function saveEditedLocation(event){
+    const buttonClicked = event.target;
+    const idToEdit = (buttonClicked.parentElement.getAttribute('id')).toString()
+    const previousEl = buttonClicked.previousSibling;
+    const insideDivs = previousEl.querySelectorAll('input')
+
+    const newLocType = Array.from(insideDivs).find(div => div.getAttribute('data-id')==='locType')
+    console.log(newLocType.value)
+    console.log(idToEdit)
 }
