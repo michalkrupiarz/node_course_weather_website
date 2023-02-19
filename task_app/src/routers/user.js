@@ -105,6 +105,7 @@ router.post('/users/me/location', auth, async(req, res)=>{
         const foundLoc = await mapbox.geocode(req.body.location);
         req.user.locations = req.user.locations.concat({location: {
             name : foundLoc.place_name,
+            locType: req.body.type,
             lattitude: foundLoc.lattitude,
             longitude: foundLoc.longitude
         }})       
