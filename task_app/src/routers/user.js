@@ -9,6 +9,7 @@ const upload = multer({
     dest: 'avatar'
 })
 const mapbox = require('../utils/mapbox/mapbox.js');
+const { geocode } = require('../utils/mapbox/mapbox.js');
 
 router.post('/users', async (req,res) => {
     const user = new User(req.body)
@@ -115,6 +116,42 @@ router.post('/users/me/location', auth, async(req, res)=>{
     }catch (e){
         res.status(500).send({error: e})
     }
+})
+
+router.patch('/users/me/location/:id', auth, async (req, res) => {
+    const updates = Object.keys(req.body);
+    const allowedUpdates = ['name', 'type'];
+    const isValidOperation = updates. every((update) => allowedUpdates.includes(update));
+   
+    if(!isValidOperation){
+        return res.status(400).send({error: 'Invalid updates!'});
+    }
+    const index = req.user
+            .locations
+            .findIndex(el => el._id.toString() === req.params.id);
+        
+    if (index === -1){    
+        return res.status(400).send({error: 'Location to change not found'});
+    }
+    try {
+    const foundLoc = await mapbox.geocode(req.body.name);
+  
+    req.user.locations[index].location.name = foundLoc.place_name;
+    req.user.locations[index].location.locType = req.body.type;
+    req.user.locations[index].location.lattitude = foundLoc.lattitude;
+    req.user.locations[index].location.longitude = foundLoc.longitude; 
+    
+    await req.user.save()
+
+    res.send({user : req.user});
+
+    } catch (e) {
+        res.status(500).send({error: e});
+    }
+    
+    
+    
+
 })
 
 router.delete('/users/me/location/:id', auth, async(req,res) => {

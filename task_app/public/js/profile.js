@@ -161,6 +161,30 @@ function saveEditedLocation(event){
     const insideDivs = previousEl.querySelectorAll('input')
 
     const newLocType = Array.from(insideDivs).find(div => div.getAttribute('data-id')==='locType')
-    console.log(newLocType.value)
-    console.log(idToEdit)
+    const newLocName = Array.from(insideDivs).find(div => div.getAttribute('data-id') === 'locName');
+
+    fetch('/users/me/location/'+idToEdit, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        body: JSON.stringify({
+            name: newLocName.value,
+            type: newLocType.value
+        })
+    }).then((r) => {
+        if(r.status === 401){
+            location.assign('/login')
+        }
+        if(r.status != 200){
+            r.json().then((data) => {
+                console.log(data);
+            })
+        } else {
+            r.json().then((data) => {
+                console.log(data);
+                renderLocations();
+            })
+        }
+    })
 }
