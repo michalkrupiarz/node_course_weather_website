@@ -5,7 +5,8 @@ const mapbox = require('../utils/mapbox/mapbox.js');
 const weatherstack = require('../utils/weatherstack/wheaterstack.js')
 const tomorrow = require('../utils/tomorow/tomorrow.js')
 const openweathermap = require('../utils/openweathermap/openwheatermap.js');
-const auth = require('../middleware/auth')
+const auth = require('../middleware/auth');
+const { update } = require('../models/user.js');
 // const Task = require('../models/task')
 // const auth = require('../middleware/auth')
 
@@ -26,6 +27,27 @@ router.get('/weather', auth, async (req,res)=>{
         })        
     }
 })
+
+router.get('/weather/me', auth, async (req,res) => {
+    Promise.all(req.user.locations.map(async element => {
+        const forecast = await openweathermap.forecast(element.location.lattitude, element.location.longitude);
+        console.log(JSON.stringify(forecast))
+        element.location.forecast = JSON.stringify(forecast);
+        
+        console.log(element)
+        return element;
+      })).then(updatedElements => {
+        res.send(updatedElements)
+      }).catch(error => {
+        console.error(error);
+      });
+})
+
+const getForecasts = async (req) => {
+    const promises = req.user.locations.map((element) => openweathermap.forecast(element.location.lattitude, element.location.longitude));
+    const forecasts = await Promise.all(promises);
+    return forecasts;
+    }
 
 module.exports = router
 

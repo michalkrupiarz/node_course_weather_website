@@ -1,5 +1,3 @@
-console.log('client side javascript')
-
 const doc = document;
 
 const openwheatermapForm = document.querySelector('#openweathermap');
@@ -21,6 +19,29 @@ weeatherstackForm.addEventListener('submit', (e) => {
     e.preventDefault();
     fetchForecastFromProvider(weeatherstackForm.querySelector('input').value, 'weatherstack', weeatherstackForm)
 })
+
+
+window.addEventListener('load', (event) => {
+    event.preventDefault();
+    console.log("loaded");
+    fetch('/weather/me')
+    .then((r) => {
+        if(r.status === 401){
+            location.assign('/login')
+        }
+        if(r.status != 200){
+            r.json().then((data) => {
+                console.log(data);
+            })
+        } else {
+            r.json().then((data) => {
+                console.log(data);
+                console.log(JSON.parse(data[0].location.forecast))
+            })
+        }
+    })
+})
+
 
 function fetchForecastFromProvider(location, provider, form){
     const label = form.querySelector('p[name="label"]');

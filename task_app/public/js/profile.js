@@ -182,7 +182,6 @@ function saveEditedLocation(event){
             })
         } else {
             r.json().then((data) => {
-                console.log(data);
                 renderLocations();
             })
         }

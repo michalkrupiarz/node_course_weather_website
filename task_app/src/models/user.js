@@ -38,7 +38,8 @@ const userSchema = new mongoose.Schema({
             name: String,
             locType: String,
             lattitude: String,
-            longitude: String
+            longitude: String,
+            forecast: String
         }
     }],
     lastLoginAt:{

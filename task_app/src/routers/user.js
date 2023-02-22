@@ -108,7 +108,8 @@ router.post('/users/me/location', auth, async(req, res)=>{
             name : foundLoc.place_name,
             locType: req.body.type,
             lattitude: foundLoc.lattitude,
-            longitude: foundLoc.longitude
+            longitude: foundLoc.longitude,
+            forecast: ''
         }})       
         await req.user.save();
         res.send({user: req.user,
