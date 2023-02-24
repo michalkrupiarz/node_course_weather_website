@@ -1,0 +1,55 @@
+body {
+    border: 3px solid;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+h2 {
+    text-align: center;
+    background-color: rgb(230, 225, 219);
+    font-size: 22px;
+}
+
+p {
+    font-size: 18px;
+}
+
+strong {
+    font-size: 22px;
+}
+
+li {
+    font-size: 14px;
+    list-style: square;
+}
+
+button {
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    border: none;
+}
+
+button:hover{
+    background-color: white;
+    color: black;
+    border: none;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+a {
+    color: black;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+.shipping {
+    font-size: 10px;
+    font-weight: normal;
+}

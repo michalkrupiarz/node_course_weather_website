@@ -1,13 +1,25 @@
-h1, 
-h2, 
-h3, 
-h4, 
-p, 
-li {
+* {
+    padding: 0;
+    margin: 0;
+}
+body {
+    color: rgb(95, 92, 92);
     font-family: sans-serif;
-    color: #444444;
+    border-top: 10px solid #1098ad;
+    border-bottom: 10px solid #1098ad;
+    border-radius: 3px;
+    padding: 5px;
 }
 
+.main-header {
+    background-color: #ad9292;
+    /* padding: 20px;
+    padding-left: 40px;
+    padding-right: 40px; */
+    padding: 20px 40px;
+    margin-bottom: 60px;
+}
+ 
 h1,
 h2,
 h3 {
@@ -24,10 +36,13 @@ h1 {
 h2 {
     font-size: 40px;
     text-transform: uppercase;
+    margin-bottom: 30px;
 }
 
 h3 {
     font-size: 30px;
+    margin-bottom: 20px;
+    margin-top: 40px;
 }
 
 h4 {
@@ -39,10 +54,25 @@ h4 {
 p {
     font-size: 22px;
     line-height: 1.5;
+    margin-bottom: 15px;
 }
 
 li {
-    font-size: 20px;    
+    font-size: 20px;
+    margin-bottom: 10px;    
+}
+
+article {
+    margin-bottom: 40px;
+}
+
+ul,ol {
+    margin-left: 50px;
+    margin-bottom:30px;
+}
+
+li:last-child {
+    margin-bottom: 0;
 }
 
 /* footer p {
@@ -71,19 +101,13 @@ li {
     list-style: none;
 }
 
-.main-header {
-    background-color: #f7f7f7;
-}
-
 aside {
     background-color: #f7f7f7;
     border-top: 5px solid #1098ad;
-    border-bottom: 5px solid #1098ad
+    border-bottom: 5px solid #1098ad;
+    padding: 50px 0;
 }
 
-body {
-    /* background-color: blanchedalmond; */
-}
 
 /* .first-li {
     font-weight: bold;
@@ -101,6 +125,52 @@ li:nth-child(even){
     color: red
 }
 
+/* This wont work */
 article p:first-child{
     color: red;
+    
+}
+
+/* Styling links */
+a:link {
+    color: #1098ad;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #1098ad;
+}
+
+a:hover {
+    color: orangered;
+    font-weight: bold;
+    text-decoration: underline orangered;
+}
+
+a:active {
+    background-color: blackbody {
+    color: red
+};
+    font-style: italic;
+}
+
+/*resolvin conflicts*/
+#copyright {
+    color: red
+}
+
+.copyright {
+    color: blue;
+}
+
+.text {
+    color: yellow;
+}
+
+footer p {
+    color: green;
+}
+
+.post-header{
+    margin-bottom: 40px;
 }
