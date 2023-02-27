@@ -1,6 +1,7 @@
 * {
     padding: 0;
     margin: 0;
+    box-sizing: border-box;
 }
 body {
     color: rgb(95, 92, 92);
@@ -12,14 +13,16 @@ body {
 }
 
 .container{
-    width: 700px;
+    width: 1200px;
     margin-left: auto;
     margin-right: auto;
+    margin: 0 auto;
     
 }
 .main-header {
     background-color: #f3e1e1;
-    height: 100px;
+    padding: 20px 40px;
+    margin-bottom: 60px;
 }
  
 nav {
@@ -59,6 +62,7 @@ h4 {
     font-size: 20px;
     text-transform: uppercase;
     text-align: center;
+    margin-bottom: 30px;
 }
 
 p {
@@ -106,13 +110,15 @@ li:last-child {
 
 .related-list{
     list-style: none;
+    margin-left: 0px;
 }
 
 aside {
     background-color: #f7f7f7;
     border-top: 5px solid #1098ad;
     border-bottom: 5px solid #1098ad;
-    padding: 50px 0;
+    padding: 50px 40px;
+    
 }
 
 
@@ -231,9 +237,51 @@ h2::after{
 
 }
 
-/*FLOATS*/
+/* FLOATS */
 
 .author-img
 {
+   float: left;
+   margin-bottom:10px;
+}
+
+.author{
+    float: left;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+h1 {
     float: left;
 }
+
+nav{
+    float: right;
+}
+
+.clear{
+    clear: both;
+}
+
+.clearfix::after{
+    clear: both;
+    content: '';
+    display: block;
+}
+
+article{
+    /* background-color: red; */
+    width: 875px;
+    float: left;
+}
+aside{
+    /* background-color: green; */
+    width: 300px;
+    float: right;
+}
+footer{
+    /* background-color: yellow; */
+    clear: both;
+}
+
+

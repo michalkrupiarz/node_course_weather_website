@@ -1,7 +1,6 @@
 * {
     padding: 0;
     margin: 0;
-    box-sizing: border-box;
 }
 
 .uppercase { 
@@ -33,15 +32,12 @@ h3 {
 }
 
 p {
-    font-size: 16px;
-    padding-bottom: 10px;
-    padding-top: 20px;
-    display: inline-block;    
+    font-size: 18px;
+    padding-bottom: 20px
 }
 
 strong {
-    font-size: 18px;
-    padding-top:20px; 
+    font-size: 22px;
 }
 
 li {
@@ -51,6 +47,10 @@ li {
     margin-bottom: 10px;
 }
 
+button {
+   
+
+}
 
 button:hover{
     background-color: white;
@@ -79,15 +79,12 @@ a:hover{
 .shipping {
     font-size: 10px;
     font-weight: normal;
-    display: inline-block;
-    text-align: right;
-    padding-left: 120px;
 }
 
 
 
 .main-container {
-    width: 840px;
+    width: 820px;
     margin-left: auto;
     margin-right: auto;
     padding-top: 50px;
@@ -108,55 +105,9 @@ h2::after{
     left: -40px;
 }
 
-div.colors-available div{
+div.colors-available button{
     width: 20px;
     height: 20px;
     margin-top: 20px;
     padding-right: 10px;
-    margin-left: 5px
-}
-
-.color-black{
-    background-color: black;
-    display: inline-block
-    
-}
-.color-blue{
-    background-color: blue;
-    display: inline-block
-
-}
-.color-red{
-    background-color: red;
-    display: inline-block
-}
-    
-.color-yellow{
-    background-color: yellow;
-    display: inline-block
-   
-}
-.color-green{
-    background-color: green;
-    display: inline-block
-    
-}
-.color-brown{
-    background-color: brown;
-    display: inline-block
-    
-}
-.img-row{
-    width: 240px;
-    height: 240px;
-    float:left;
-}
-.price-row{
-    width:300px;
-    padding-left: 10px;
-    float:left;
-}
-.details-row{
-    width: 300px;
-    float:right;
 }
