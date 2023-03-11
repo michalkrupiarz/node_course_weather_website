@@ -7,10 +7,14 @@
             <title>index</title>
         </head>
         <body>
-            {{>header}}
+            <div class="pageContent">
+
+            {{>forecast}}
             <div class="main-content">
-                {{>forecast}}
+                
+                {{>header}}
                 <div class ="content">
+                    
                     <p>Use this to get your weather from openweathermap.</p>
                     <form id="openweathermap">
                         <input placeholder="Mietków">
@@ -34,10 +38,12 @@
                         <p name="label"></p>
                         <p name="forecast"></p>
                     </form>
+                    
                 </div>
-                {{>calendar}}
+                {{>footer}}
             </div>
-            {{>footer}}
+            {{>calendar}}
+            </div>
 
             <script src="./js/app.js"></script>
         </body>

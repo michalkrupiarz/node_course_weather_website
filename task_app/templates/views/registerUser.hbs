@@ -1,26 +1,32 @@
-<!DOCTYPE htmls>
 <html>
-    <head>
-        <link rel="stylesheet" href="css/styles.css">
-        <link rel="icon" href="./img/weather.png">
-        
-        <title>Login Page</title>
-    </head>
-    <body>
-        This is login page.
+  <head>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="icon" href="./img/weather.png" />
+
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div class="panel">
+      <div class="leftPanel"></div>
+      <div class="middlePanel"></div>
+      <div class="rightPanel">
+
+        This is register Page.
         <form id="registerForm">
-            <p>User name</p>
-            <input id="name" required>
-            <p>Login</p>
-            <input type = 'email' id="login" required>
-            <p>Password</p>
-            <input id="password"  required minlength="8">
-            <button>Register</button>
+          <p>User name</p>
+          <input id="name" required />
+          <p>Login</p>
+          <input type="email" id="login" required />
+          <p>Password</p>
+          <input id="password" required minlength="8" />
+          <button>Register</button>
         </form>
         <div id="errorMessage"></div>
         <button>
-            <a href="/"> Already have account? Go to login.</a> 
+          <a href="/"> Already have account? Go to login.</a>
         </button>
-        <script src="./js/register.js"></script>
-    </body>
+      </div>
+    </div>
+    <script src="./js/register.js"></script>
+  </body>
 </html>

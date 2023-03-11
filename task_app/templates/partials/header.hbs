@@ -1,13 +1,16 @@
 <header>
-    <h1>{{title}}</h1>
-    <div id="navigation">
-        <a href = "/index">Weather</a>
-        <a href = "/about">About</a>
-        <a href = "/help">Help</a>
-        <a href = "/test">Test</a>
-        <a href = "/testPartial">test partial </a>
-        <a href = "/profile">Profile</a>
-        <button id="logout">Logout</button>
+  <h1>
+    <div class="top">
+      {{title}}
+      <button id="logout" class="logout">Logout</button>
     </div>
+  </h1>
+  <div id="navigation" class="links">
+    <a href="/index">Weather </a>
+    <a href="/about">About</a>
+    <a href="/help">Help</a>
+    <a href="/profile">Profile</a>
+
+  </div>
 </header>
 <script src="./js/header.js"></script>

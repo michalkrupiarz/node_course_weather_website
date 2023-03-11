@@ -7,9 +7,11 @@
             <title>About</title>    
         </head>
         <body>
-            {{>header}} 
+            <div class="pageContent">
+
+             {{>forecast}}
             <div class="main-content">
-                {{>forecast}}
+                {{>header}}
                 <div class="content">
                     <div>Email address
                         <p id="email"></p>
@@ -30,9 +32,10 @@
                     </form>
                 </div>                                        
                         
-                {{>calendar}}
+                {{>footer}}    
             </div>   
-            {{>footer}}    
+            {{>calendar}}
+            </div>
          </body>
          <script src="./js/profile.js"></script> 
 </html>
