@@ -35,8 +35,19 @@ window.addEventListener('load', (event) => {
             })
         } else {
             r.json().then((data) => {
-                console.log(data);
                 console.log(JSON.parse(data[0].location.forecast))
+                const mainDiv = document.querySelector("#forecasts");
+                const newElement = document.createElement("div");
+                newElement.innerHTML = mainDiv.innerHTML;
+                mainDiv.innerHTML = "";
+                data.forEach(loc => {
+                    const forecast = document.createElement("div");
+                    forecast.id = "id_"+loc._id;
+                    mainDiv.appendChild(forecast);
+                    forecast.innerHTML = newElement.innerHTML;
+                    
+                    showSavedForecast(JSON.parse(loc.location.forecast),loc.location.name, "id_"+loc._id);
+                })
             })
         }
     })
@@ -63,29 +74,51 @@ function fetchForecastFromProvider(location, provider, form){
                     label.textContent = "Error";
                     return forecast.textContent = data.error; 
                 }
-                
                 label.textContent = 'Forecast';
-                const weather= data.forceast.weather[0];
-                const temp = data.forceast.main;
-                console.log(data)
-                document.querySelector("#menuForecast").textContent='Forecast';
-                document.querySelector("#place").textContent = JSON.stringify(location);
-                document.querySelector("#typeOfWeather").textContent = JSON.stringify(weather.main)
-                    +' ('+JSON.stringify(weather.description)+')';
-                document.querySelector("#temp").textContent = JSON.stringify(temp.temp);
-                document.querySelector("#feelsLike").textContent = JSON.stringify(temp.feels_like);
-                document.querySelector("#tempMin").textContent = JSON.stringify(temp.temp_min);
-                document.querySelector("#tempMax").textContent = JSON.stringify(temp.temp_max);
-                document.querySelector("#pressure").textContent = JSON.stringify(temp.pressure);
-                document.querySelector("#humidity").textContent = JSON.stringify(temp.humidity);
-                document.querySelector("#visibility").textContent = JSON.stringify(data.forceast.visibility);
-                document.querySelector("#windSpeed").textContent = JSON.stringify(data.forceast.wind.speed);
-                document.querySelector("#sunrise").textContent = JSON.stringify(convertTime(data.forceast.sys.sunrise));
-                document.querySelector("#sunset").textContent = JSON.stringify(convertTime(data.forceast.sys.sunset));
+                showForecast(data, location);
                 return forecast.textContent = JSON.stringify(data.forcast); 
             })
         }
     )
+}
+
+function showForecast(data, location){
+    const weather= data.forecast.weather[0];
+    const temp = data.forecast.main;
+    document.querySelector("[data-name=menuForecast]").textContent='Forecast';
+    document.querySelector("[data-name=place]").textContent = JSON.stringify(location);
+    document.querySelector("[data-name=typeOfWeather]").textContent = JSON.stringify(weather.main)
+        +' ('+JSON.stringify(weather.description)+')';
+    document.querySelector("[data-name=temp]").textContent = JSON.stringify(temp.temp);
+    document.querySelector("[data-name=feelsLike]").textContent = JSON.stringify(temp.feels_like);
+    document.querySelector("[data-name=tempMin]").textContent = JSON.stringify(temp.temp_min);
+    document.querySelector("[data-name=tempMax]").textContent = JSON.stringify(temp.temp_max);
+    document.querySelector("[data-name=pressure]").textContent = JSON.stringify(temp.pressure);
+    document.querySelector("[data-name=humidity]").textContent = JSON.stringify(temp.humidity);
+    document.querySelector("[data-name=visibility]").textContent = JSON.stringify(data.forceast.visibility);
+    document.querySelector("[data-name=windSpeed]").textContent = JSON.stringify(data.forceast.wind.speed);
+    document.querySelector("[data-name=sunrise]").textContent = JSON.stringify(convertTime(data.forceast.sys.sunrise));
+    document.querySelector("[data-name=sunset]").textContent = JSON.stringify(convertTime(data.forceast.sys.sunset));
+}
+
+
+function showSavedForecast(data, location, id){
+    const weather= data.weather[0];
+    const temp = data.main;
+    document.querySelector('#'+id).querySelector("[data-name=menuForecast]").textContent='Forecast';
+    document.querySelector('#'+id).querySelector("[data-name=place]").textContent = JSON.stringify(location);
+    document.querySelector('#'+id).querySelector("[data-name=typeOfWeather]").textContent = JSON.stringify(weather.main)
+        +' ('+JSON.stringify(weather.description)+')';
+    document.querySelector('#'+id).querySelector("[data-name=temp]").textContent = JSON.stringify(temp.temp);
+    document.querySelector('#'+id).querySelector("[data-name=feelsLike]").textContent = JSON.stringify(temp.feels_like);
+    document.querySelector('#'+id).querySelector("[data-name=tempMin]").textContent = JSON.stringify(temp.temp_min);
+    document.querySelector('#'+id).querySelector("[data-name=tempMax]").textContent = JSON.stringify(temp.temp_max);
+    document.querySelector('#'+id).querySelector("[data-name=pressure]").textContent = JSON.stringify(temp.pressure);
+    document.querySelector('#'+id).querySelector("[data-name=humidity]").textContent = JSON.stringify(temp.humidity);
+    document.querySelector('#'+id).querySelector("[data-name=visibility]").textContent = JSON.stringify(data.visibility);
+    document.querySelector('#'+id).querySelector("[data-name=windSpeed]").textContent = JSON.stringify(data.wind.speed);
+    document.querySelector('#'+id).querySelector("[data-name=sunrise]").textContent = JSON.stringify(convertTime(data.sys.sunrise));
+    document.querySelector('#'+id).querySelector("[data-name=sunset]").textContent = JSON.stringify(convertTime(data.sys.sunset));
 }
 
 function convertTime(time) {

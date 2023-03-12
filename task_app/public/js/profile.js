@@ -3,13 +3,6 @@ window.addEventListener('load', (event) => {
     renderLocations();
 })
 
-// document.querySelector('#locations').addEventListener('click', (e) => {
-//     if(e.target && e.target.id === 'addLocation'){
-//         e.preventDefault();
-//         changeLocation();
-//     }
-    
-// })
 
 document.querySelector('#addLocation').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -76,7 +69,7 @@ function renderLocArray(locArray, locEl){
 
 function renderElementInLocationArray(element, locEl){
     const mainDiv = document.createElement('div')
-    mainDiv.id = element._id
+    mainDiv.id = "id_"+element._id
     locEl.appendChild(mainDiv);
 
     const locDiv = document.createElement('div')
