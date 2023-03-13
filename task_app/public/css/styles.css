@@ -2,6 +2,8 @@
     padding: 0;
     margin: 0;
     font-family: sans-serif;
+    box-sizing: border-box;
+    font-size: 14px;
 }
 
 body {
@@ -15,8 +17,9 @@ header {
 }
 
 footer {
-    background-color: burlywood;
-
+    background-color: #cccccc;
+    border-top: 5px solid #1098ad;
+    height: 80px;
 }
 
 p {
@@ -31,15 +34,15 @@ p {
 }
 .main-content {
     display: grid;
-    grid-template-rows: auto auto auto;
+    grid-template-rows: auto 1fr auto;
     gap: 12px;
 }
 
 .menu{
-    background-color: aquamarine;
+    background-color: #cccccc;
 }
 .calendar{
-    background-color: aqua;
+    background-color: #cccccc;
 }
 
 
@@ -117,6 +120,27 @@ a:hover {
     height: 300px;
 
 }
+
+.forecast {
+    font-size: 14px;
+    background-color: #cccccc;
+    margin-left: 4px;
+    margin-right: 4px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    padding-top: 4px;
+    padding-left: 12px;
+    padding-bottom: 8px;
+    padding-right: 4px;
+    box-shadow: 6px 6px 6px 5px #635d5d;
+    border-radius: 12px;
+}
+
+.forecast p{
+    margin-top: 2px;
+    margin-bottom: 4px;
+}
+
 
 
 
