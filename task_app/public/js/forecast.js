@@ -34,18 +34,17 @@ window.addEventListener('load', (event) => {
 function showSavedForecast(data, location, id){
     const weather= data.weather[0];
     const temp = data.main;
-    document.querySelector('#'+id).querySelector("[data-name=menuForecast]").textContent='Forecast';
-    document.querySelector('#'+id).querySelector("[data-name=place]").textContent = JSON.stringify(location);
-    document.querySelector('#'+id).querySelector("[data-name=typeOfWeather]").textContent = JSON.stringify(weather.main)
-        +' ('+JSON.stringify(weather.description)+')';
-    document.querySelector('#'+id).querySelector("[data-name=temp]").textContent = JSON.stringify(temp.temp);
-    document.querySelector('#'+id).querySelector("[data-name=feelsLike]").textContent = JSON.stringify(temp.feels_like);
-    document.querySelector('#'+id).querySelector("[data-name=tempMin]").textContent = JSON.stringify(temp.temp_min);
-    document.querySelector('#'+id).querySelector("[data-name=tempMax]").textContent = JSON.stringify(temp.temp_max);
-    document.querySelector('#'+id).querySelector("[data-name=pressure]").textContent = JSON.stringify(temp.pressure);
-    document.querySelector('#'+id).querySelector("[data-name=humidity]").textContent = JSON.stringify(temp.humidity);
-    document.querySelector('#'+id).querySelector("[data-name=visibility]").textContent = JSON.stringify(data.visibility);
-    document.querySelector('#'+id).querySelector("[data-name=windSpeed]").textContent = JSON.stringify(data.wind.speed);
-    document.querySelector('#'+id).querySelector("[data-name=sunrise]").textContent = JSON.stringify(convertTime(data.sys.sunrise));
-    document.querySelector('#'+id).querySelector("[data-name=sunset]").textContent = JSON.stringify(convertTime(data.sys.sunset));
+    document.querySelector('#'+id).querySelector("[data-name=place]").textContent = location;
+    document.querySelector('#'+id).querySelector("[data-name=typeOfWeather]").textContent = weather.main
+        +' ('+weather.description+')';
+    document.querySelector('#'+id).querySelector("[data-name=temp]").textContent = (temp.temp);
+    document.querySelector('#'+id).querySelector("[data-name=feelsLike]").textContent = (temp.feels_like);
+    document.querySelector('#'+id).querySelector("[data-name=tempMin]").textContent = (temp.temp_min);
+    document.querySelector('#'+id).querySelector("[data-name=tempMax]").textContent = (temp.temp_max);
+    document.querySelector('#'+id).querySelector("[data-name=pressure]").textContent = (temp.pressure);
+    document.querySelector('#'+id).querySelector("[data-name=humidity]").textContent = (temp.humidity);
+    document.querySelector('#'+id).querySelector("[data-name=visibility]").textContent = data.visibility;
+    document.querySelector('#'+id).querySelector("[data-name=windSpeed]").textContent = data.wind.speed;
+    document.querySelector('#'+id).querySelector("[data-name=sunrise]").textContent = convertTime(data.sys.sunrise);
+    document.querySelector('#'+id).querySelector("[data-name=sunset]").textContent = convertTime(data.sys.sunset);
 }

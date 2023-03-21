@@ -4,21 +4,22 @@
     font-family: sans-serif;
     box-sizing: border-box;
     font-size: 14px;
+    color: #343a40;
 }
 
 body {
-    background-color: #cccccc;
+    background-color: #ced4da;
 }
 
 header {
-    border-bottom: 5px solid #1098ad;
+    border-bottom: 5px solid #1c7ed6;
     height: 100px;
     position: relative;
 }
 
 footer {
-    background-color: #cccccc;
-    border-top: 5px solid #1098ad;
+    background-color: #ced4da;
+    border-top: 5px solid #1c7ed6;
     height: 80px;
 }
 
@@ -39,15 +40,15 @@ p {
 }
 
 .menu{
-    background-color: #cccccc;
+    background-color: #ced4da;
 }
 .calendar{
-    background-color: #cccccc;
+    background-color: #ced4da;
 }
 
 
 input {
-    border: 1px solid #cccccc;
+    border: 1px solid #ced4da;
     padding: 8px;
     margin-top: 10px;
 }
@@ -55,10 +56,12 @@ input {
 button {
     cursor: pointer;
     border: 1px solid #888888;
-    background: #888888;
+    background: #1c7ed6;
     color: white;
     padding: 8px;
     margin-top: 10px;
+    border-radius: 12px;
+    box-shadow:1px 1px 1px 1px #1864ab;
 }
 
 .links{
@@ -69,18 +72,18 @@ button {
 }
 
 a:link {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
 a:visited {
-    color: black;
+    color: white;
 }
 
 a:hover {
-    color: black;
+    color: white;
     font-weight: bold;
-    text-decoration: underline black;
+    text-decoration: underline white;
 }
 .logout{
     width: 100px;
@@ -110,7 +113,7 @@ a:hover {
 }
 
 .middlePanel{
-    border-right: 10px solid #888888;
+    border-right: 10px solid #1c7ed6;
     height: 1fr;
 
 }
@@ -123,11 +126,11 @@ a:hover {
 
 .forecast {
     font-size: 14px;
-    background-color: #cccccc;
+    background-color: #ced4da;
     margin-left: 4px;
     margin-right: 4px;
     margin-top: 4px;
-    margin-bottom: 4px;
+    margin-bottom: 12px;
     padding-top: 4px;
     padding-left: 12px;
     padding-bottom: 8px;

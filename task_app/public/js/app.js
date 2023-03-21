@@ -68,21 +68,6 @@ function showForecast(data, location){
     document.querySelector("[data-name=sunset]").textContent = JSON.stringify(convertTime(data.forceast.sys.sunset));
 }
 
-
-
-
-function convertTime(time) {
-    const date = new Date(time*1000)
-    return date.toLocaleDateString("en-UK", {
-        timeZone: "Europe/Berlin",
-        hour: "2-digit",
-        minute: "2-digit",
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric"
-    })
-}
-
 function getTokenFromCookie(document) {
     const cookies = document.cookie.split(";");
     for (const cookie of cookies){
