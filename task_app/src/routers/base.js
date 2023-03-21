@@ -84,6 +84,7 @@ router.get('/profile', (req,res) => {
 })
 
 router.get('*', (req,res)=>{
+    console.log('not found');
     res.render('pageNotFound',{
         title: 'Page not found',
         name: 'Michal',

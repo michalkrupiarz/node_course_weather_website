@@ -72,18 +72,18 @@ button {
 }
 
 a:link {
-    color: white;
+    color: #343a40;
     text-decoration: none;
 }
 
 a:visited {
-    color: white;
+    color: #343a40;
 }
 
 a:hover {
-    color: white;
+    color: #343a40;
     font-weight: bold;
-    text-decoration: underline white;
+    text-decoration: underline #343a40;
 }
 .logout{
     width: 100px;
