@@ -83,6 +83,13 @@ router.get('/profile', (req,res) => {
     })
 })
 
+router.get('/notesList', (req,res) =>{
+    res.render('notesList',{
+        title: 'Notes list',
+        author: 'Michal'
+    })
+})
+
 router.get('*', (req,res)=>{
     console.log('not found');
     res.render('pageNotFound',{
@@ -91,4 +98,6 @@ router.get('*', (req,res)=>{
         errorMessage: 'Page on server was not found'
     })
 })
+
+
 module.exports = router;

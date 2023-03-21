@@ -15,6 +15,21 @@ const noteRouter = require('./routers/note')
 
 const app = express();
 
+//path for expres
+const viewPath = path.join(__dirname, '../templates/views')
+const staticPath = path.join(__dirname, '../public');
+const partialPath = path.join(__dirname, '../templates/partials')
+
+
+//setup static direcotry to serve
+app.use(express.static(staticPath));
+
+// setup handlebars view engine to hbs and where to look for templates
+app.set('view engine', 'hbs'); //handlebars set up
+app.set('views', viewPath);
+hbs.registerPartials(partialPath);
+
+
 app.use(
     session({
       secret: "secret-key",
@@ -34,19 +49,6 @@ app.use(baseRouter)
 
 
 
-//path for expres
-const viewPath = path.join(__dirname, '../templates/views')
-const staticPath = path.join(__dirname, '../public');
-const partialPath = path.join(__dirname, '../templates/partials')
-
-
-//setup static direcotry to serve
-app.use(express.static(staticPath));
-
-// setup handlebars view engine to hbs and where to look for templates
-app.set('view engine', 'hbs'); //handlebars set up
-app.set('views', viewPath);
-hbs.registerPartials(partialPath);
 
 app.listen(3000, ()=>{
     console.log('Server is up on port 3000 yeah');

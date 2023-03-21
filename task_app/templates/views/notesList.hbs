@@ -1,0 +1,28 @@
+<html>
+        <head>
+            <link rel="stylesheet" href="css/styles.css">
+            <link rel="icon" href="./img/weather.png">
+            
+            <title>Notes List</title>
+        </head>
+        <body>
+            <div class="pageContent">
+
+            {{>forecast}}
+            <div class="main-content">
+                
+                {{>header}}
+                <div class ="content">
+                    
+                    This are notes
+                </div>
+                {{>footer}}
+            </div>
+            {{>calendar}}
+            </div>
+
+            <script src="./js/forecast.js"></script>
+            <script src="./js/utils.js"></script>
+            <script src="./js/notes.js"></script>
+        </body>
+</html>
