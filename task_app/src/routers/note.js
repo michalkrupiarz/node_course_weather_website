@@ -32,7 +32,7 @@ router.get('/notes', auth, async (req,res)=>{
             res.send("No notes found");
         } else {
             res.send({
-                notesFound : {
+                userNotes : {
                     count: req.user.notes.length,
                     notes: req.user.notes
                 }

@@ -11,9 +11,24 @@ window.addEventListener('load', (event) => {
             })
         } else {
             response.json().then((data) => {
-
-                console.log(data);
+                console.log(data.userNotes.notes);
+                renderNotes(data.userNotes.notes);
             })
         }
     })
 })
+
+function renderNotes(data){
+    const note = document.querySelector(".note");
+    const notes = document.querySelector(".notes");
+    notes.innerHTML = '';
+        data.forEach((el) => {
+        const newNote = note.cloneNode(true);
+        notes.appendChild(newNote);
+        renderNote(el, newNote);
+    })
+}
+
+function renderNote(note, noteNode){
+    noteNode.id = "id_" +note._id;
+}
