@@ -11,7 +11,7 @@ window.addEventListener('load', (event) => {
             })
         } else {
             response.json().then((data) => {
-                console.log(data.userNotes.notes);
+                console.log(data.userNotes);
                 renderNotes(data.userNotes.notes);
             })
         }
@@ -31,4 +31,7 @@ function renderNotes(data){
 
 function renderNote(note, noteNode){
     noteNode.id = "id_" +note._id;
+    noteNode.querySelector('.id').textContent = note._id;
+    noteNode.querySelector('.noteTitle').textContent = note.title;
+    
 }

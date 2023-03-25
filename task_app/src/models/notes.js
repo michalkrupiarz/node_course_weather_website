@@ -19,9 +19,11 @@ const noteSchema = new mongoose.Schema({
         }
     }],
     author: {
-        type: mongoose.Schema.Types.ObjectId,
-        required: true,
-        ref: 'User'
+        id: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        }   
     }},
     {
         timestamps: true
