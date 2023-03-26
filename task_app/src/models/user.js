@@ -59,8 +59,9 @@ const userSchema = new mongoose.Schema({
 userSchema.virtual('notes', {
      ref: 'Note',
      localField: '_id',
-     foreignField: 'author'
+     foreignField: 'author.id'
  })
+
 
 userSchema.methods.toJSON = function (){
     const user = this;

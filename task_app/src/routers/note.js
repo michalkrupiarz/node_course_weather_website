@@ -6,7 +6,10 @@ const auth = require('../middleware/auth')
 router.post('/notes', auth, async (req,res)=> {
     const note = new Note({
         ...req.body,
-        author: req.user._id
+        author: {
+            id: req.user._id,
+            email: req.user.email
+        } 
     })
     try{
         res.status(201).send( await note.save())
@@ -29,6 +32,7 @@ router.get('/notes', auth, async (req,res)=>{
             // } 
         })
         if(req.user.notes.length<1){
+            console.log(req.user)
             res.send("No notes found");
         } else {
             res.send({

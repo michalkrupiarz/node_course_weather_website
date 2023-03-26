@@ -23,6 +23,11 @@ const noteSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             required: true,
             ref: 'User'
+        },
+        email: {
+            type: mongoose.Schema.Types.String,
+            required: true,
+            ref: 'User'
         }   
     }},
     {

@@ -1,6 +1,5 @@
 window.addEventListener('load', (event) => {
     event.preventDefault();
-    console.log('cos tam')
     fetch('/notes').then((response) => {
         if(response.status === 401){
             location.assign('/login');
@@ -10,6 +9,7 @@ window.addEventListener('load', (event) => {
                 console.log(data);
             })
         } else {
+            console.log(response);
             response.json().then((data) => {
                 console.log(data.userNotes);
                 renderNotes(data.userNotes.notes);
@@ -33,5 +33,7 @@ function renderNote(note, noteNode){
     noteNode.id = "id_" +note._id;
     noteNode.querySelector('.id').textContent = note._id;
     noteNode.querySelector('.noteTitle').textContent = note.title;
+    noteNode.querySelector('.noteAuthor').id = "id_" +note.author.id;
+    noteNode.querySelector('.noteAuthor').textContent = note.author.email;
     
 }
