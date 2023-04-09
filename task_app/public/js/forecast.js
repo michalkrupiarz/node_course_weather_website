@@ -8,11 +8,10 @@ window.addEventListener('load', (event) => {
         }
         if(r.status != 200){
             r.json().then((data) => {
-                console.log(data);
+                console.log('error');
             })
         } else {
             r.json().then((data) => {
-                console.log(JSON.parse(data[0].location.forecast))
                 const mainDiv = document.querySelector("#forecasts");
                 const newElement = document.createElement("div");
                 newElement.innerHTML = mainDiv.innerHTML;

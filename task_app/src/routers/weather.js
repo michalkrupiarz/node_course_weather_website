@@ -7,6 +7,7 @@ const tomorrow = require('../utils/tomorow/tomorrow.js')
 const openweathermap = require('../utils/openweathermap/openwheatermap.js');
 const auth = require('../middleware/auth');
 const { update } = require('../models/user.js');
+const { request } = require('express');
 // const Task = require('../models/task')
 // const auth = require('../middleware/auth')
 
@@ -29,12 +30,17 @@ router.get('/weather', auth, async (req,res)=>{
 })
 
 router.get('/weather/me', auth, async (req,res) => {
+    
+    req.user.locations.forEach(loc => {
+       console.log(loc.forecast === undefined);
+    })
+
     Promise.all(req.user.locations.map(async element => {
         const forecast = await openweathermap.forecast(element.location.lattitude, element.location.longitude);
-        console.log(JSON.stringify(forecast))
+        //console.log(JSON.stringify(forecast))
         element.location.forecast = JSON.stringify(forecast);
         
-        console.log(element)
+        //console.log(element)
         return element;
       })).then(updatedElements => {
         res.send(updatedElements)

@@ -120,11 +120,13 @@ function editLocation(event){
 
 function deleteLocation(event){
     const buttonClicked = event.target;
-    const idToDelete = (buttonClicked.parentElement.getAttribute('id')).toString()
+    const idToDelete = (buttonClicked.parentElement.getAttribute('id')).toString().replace('id_','');
     deleteLocationCall(idToDelete);
 }
 
 function deleteLocationCall(id){
+
+    
     fetch('/users/me/location/'+id, {
         method: 'DELETE',
         headers: {

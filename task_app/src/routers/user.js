@@ -10,6 +10,7 @@ const upload = multer({
 })
 const mapbox = require('../utils/mapbox/mapbox.js');
 const { geocode } = require('../utils/mapbox/mapbox.js');
+const openweathermap = require('../utils/openweathermap/openwheatermap.js');
 
 router.post('/users', async (req,res) => {
     const user = new User(req.body)
@@ -104,12 +105,13 @@ router.delete('/users/me', auth, async (req,res) => {
 router.post('/users/me/location', auth, async(req, res)=>{
     try {
         const foundLoc = await mapbox.geocode(req.body.location);
+        const forecast = await openweathermap.forecast(foundLoc.lattitude, foundLoc.longitude);
         req.user.locations = req.user.locations.concat({location: {
             name : foundLoc.place_name,
             locType: req.body.type,
             lattitude: foundLoc.lattitude,
             longitude: foundLoc.longitude,
-            forecast: ''
+            forecast: JSON.stringify(forecast)
         }})       
         await req.user.save();
         res.send({user: req.user,
@@ -135,16 +137,18 @@ router.patch('/users/me/location/:id', auth, async (req, res) => {
         return res.status(400).send({error: 'Location to change not found'});
     }
     try {
-    const foundLoc = await mapbox.geocode(req.body.name);
-  
-    req.user.locations[index].location.name = foundLoc.place_name;
-    req.user.locations[index].location.locType = req.body.type;
-    req.user.locations[index].location.lattitude = foundLoc.lattitude;
-    req.user.locations[index].location.longitude = foundLoc.longitude; 
-    
-    await req.user.save()
+        const foundLoc = await mapbox.geocode(req.body.name);
+        const forecast = await openweathermap.forecast(foundLoc.lattitude, foundLoc.longitude);
 
-    res.send({user : req.user});
+        req.user.locations[index].location.name = foundLoc.place_name;
+        req.user.locations[index].location.locType = req.body.type;
+        req.user.locations[index].location.lattitude = foundLoc.lattitude;
+        req.user.locations[index].location.longitude = foundLoc.longitude;
+        req.user.locations[index].location.forecast = forecast;
+
+        await req.user.save();
+
+        res.send({ user: req.user });
 
     } catch (e) {
         res.status(500).send({error: e});
@@ -156,11 +160,13 @@ router.patch('/users/me/location/:id', auth, async (req, res) => {
 })
 
 router.delete('/users/me/location/:id', auth, async(req,res) => {
+    console.log(req.params.id);
     try {
         const index = req.user
             .locations
             .findIndex(el => el._id.toString() === req.params.id);
-        if (index !== -1){
+            console.log('Wlazelm do usuwania lokacji ' +index);
+        if (index !== -1){ 
             req.user.locations.splice(index, 1);
         }
         await req.user.save()

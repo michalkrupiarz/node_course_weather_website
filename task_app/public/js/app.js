@@ -1,26 +1,3 @@
-const doc = document;
-
-const openwheatermapForm = document.querySelector('#openweathermap');
-const tommorowForm = document.querySelector('#tommorow');
-const weeatherstackForm = document.querySelector('#weatherstack');
-
-openwheatermapForm.addEventListener('submit', (e)=>{
-    e.preventDefault();
-    fetchForecastFromProvider(openwheatermapForm.querySelector('input').value, 'openweathermap', openwheatermapForm)
-})
-
-tommorowForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    fetchForecastFromProvider(tommorowForm.querySelector('input').value, 'tommorow', tommorowForm)
-    
-})
-
-weeatherstackForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    fetchForecastFromProvider(weeatherstackForm.querySelector('input').value, 'weatherstack', weeatherstackForm)
-})
-
-
 function fetchForecastFromProvider(location, provider, form){
     const label = form.querySelector('p[name="label"]');
     const forecast = form.querySelector('p[name="forecast"]');
