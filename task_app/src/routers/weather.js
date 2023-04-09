@@ -31,8 +31,11 @@ router.get('/weather', auth, async (req,res)=>{
 
 router.get('/weather/me', auth, async (req,res) => {
     
-    req.user.locations.forEach(loc => {
-       console.log(loc.forecast === undefined);
+    req.user.locations.forEach(async loc => {
+       if(loc.forecast === undefined){
+            const forecast = await openweathermap.forecast(loc.lattitude, loc.longitude);
+            loc.forecast = JSON.stringify(forecast);
+       }
     })
 
     Promise.all(req.user.locations.map(async element => {

@@ -14,21 +14,27 @@ window.addEventListener('load', (event) => {
             r.json().then((data) => {
                 const mainDiv = document.querySelector("#forecasts");
                 const newElement = document.createElement("div");
-                newElement.innerHTML = mainDiv.innerHTML;
-                mainDiv.innerHTML = "";
-                data.forEach(loc => {
-                    const forecast = document.createElement("div");
-                    forecast.id = "id_"+loc._id;
-                    forecast.className = "forecast";
-                    mainDiv.appendChild(forecast);
-                    forecast.innerHTML = newElement.innerHTML;
-                    
-                    showSavedForecast(JSON.parse(loc.location.forecast),loc.location.name, "id_"+loc._id);
-                })
+                showSavedForecasts(data, mainDiv, newElement);
             })
         }
     })
 })
+
+
+
+function showSavedForecasts(data, mainDiv, newElement){
+    newElement.innerHTML = mainDiv.innerHTML;
+    mainDiv.innerHTML = "";
+    data.forEach(loc => {
+        const forecast = document.createElement("div");
+        forecast.id = "id_"+loc._id;
+        forecast.className = "forecast";
+        mainDiv.appendChild(forecast);
+        forecast.innerHTML = newElement.innerHTML;
+        
+        showSavedForecast(JSON.parse(loc.location.forecast),loc.location.name, "id_"+loc._id);
+    })
+}
 
 function showSavedForecast(data, location, id){
     const weather= data.weather[0];
