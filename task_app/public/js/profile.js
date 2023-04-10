@@ -13,7 +13,6 @@ document.querySelector('#addLocation').addEventListener('submit', (e) => {
 
 
 function addLocation(locToAdd, locType){
-    console.log('add location')
     fetch('/users/me/location', {
         method: 'POST',
         headers: {
@@ -33,7 +32,6 @@ function addLocation(locToAdd, locType){
             })
         } else {
             r.json().then((data) => {
-                console.log('add location data ', data.user)
                 renderLocations();
                 showSavedForecasts(data.user.locations)
             })
@@ -58,7 +56,6 @@ function renderLocations(){
                 document.querySelector('#userName').textContent = JSON.stringify(data.name)
                 const locEl = document.querySelector('#locations')
                 renderLocArray(data.locations, locEl)
-                console.log('render locations ',data.locations);
             })
         }
         
@@ -66,7 +63,6 @@ function renderLocations(){
 )}
 
 function renderLocArray(locArray, locEl){
-    console.log('jestem w renderLoCArray')
     locEl.innerHTML = '';
     locArray.forEach((element) => {
         renderElementInLocationArray(element, locEl)
@@ -147,7 +143,6 @@ function deleteLocationCall(id){
             }) 
         } else {
             response.json().then((data) => {
-                console.log(data);
                 renderLocations();
                 showSavedForecasts(data.user.locations)
             })

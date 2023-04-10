@@ -32,7 +32,6 @@ router.get('/notes', auth, async (req,res)=>{
             // } 
         })
         if(req.user.notes.length<1){
-            console.log(req.user)
             res.send("No notes found");
         } else {
             res.send({

@@ -29,7 +29,6 @@ router.post('/users', async (req,res) => {
 })
 
 router.post('/users/login', async (req, res) => {
-    console.log('doszlo tu w ogole?')
     try {
         const user = await User.findByCredentials(req.body.login, req.body.password)
         const token = await user.generateAuthToken();
@@ -58,7 +57,6 @@ router.post('/users/logout', auth, async (req, res)=>{
 })
 
 router.post('/users/logoutAll', auth, async(req, res)=>{
-    console.log('is in logout')
     try {
         req.user.tokens = [] ;
         await req.user.save();
@@ -160,12 +158,10 @@ router.patch('/users/me/location/:id', auth, async (req, res) => {
 })
 
 router.delete('/users/me/location/:id', auth, async(req,res) => {
-    console.log(req.params.id);
     try {
         const index = req.user
             .locations
             .findIndex(el => el._id.toString() === req.params.id);
-            console.log('Wlazelm do usuwania lokacji ' +index);
         if (index !== -1){ 
             req.user.locations.splice(index, 1);
         }

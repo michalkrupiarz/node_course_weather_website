@@ -10,7 +10,6 @@ window.addEventListener('load', (event) => {
             })
         } else {
             response.json().then((data) => {
-                console.log(data.userNotes);
                 renderNotes(data.userNotes.notes);
             })
         }

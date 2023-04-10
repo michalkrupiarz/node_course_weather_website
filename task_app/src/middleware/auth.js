@@ -3,7 +3,6 @@ const User = require('../models/user')
 
 const auth = async (req, res, next) => {
     try {
-        console.log('i`m in auth')
         if(!req.cookies.token){
             return res.status(401).send({error: 'User not found.'}).end();
         }

@@ -1,6 +1,5 @@
 window.addEventListener('load', (event) => {
     event.preventDefault();
-    console.log("loaded");
     fetch('/weather/me')
     .then((r) => {
         if(r.status === 401){
