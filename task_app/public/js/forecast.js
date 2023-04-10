@@ -30,7 +30,7 @@ function showSavedForecasts(data, mainDiv, newElement){
         forecast.id = "id_"+loc._id;
         forecast.className = "forecast";
         mainDiv.appendChild(forecast);
-        forecast.innerHTML = newElement.innerHTML;
+    //    forecast.innerHTML = newElement.innerHTML;
         
         showSavedForecast(JSON.parse(loc.location.forecast),loc.location.name, "id_"+loc._id);
     })
