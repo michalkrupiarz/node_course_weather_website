@@ -12,28 +12,31 @@ window.addEventListener('load', (event) => {
             })
         } else {
             r.json().then((data) => {
-                const mainDiv = document.querySelector("#forecasts");
-                const newElement = document.createElement("div");
-                showSavedForecasts(data, mainDiv, newElement);
+                
+                
+                showSavedForecasts(data);
             })
         }
     })
 })
 
 
-
-function showSavedForecasts(data, mainDiv, newElement){
-    newElement.innerHTML = mainDiv.innerHTML;
+function showSavedForecasts(data){
+    const mainDiv = document.querySelector("#forecasts");
+    const template = document.querySelector("[data-name=forecastTemplate]");
+    const newElement = document.createElement('div');
+    newElement.innerHTML = template.innerHTML;
     mainDiv.innerHTML = "";
     data.forEach(loc => {
         const forecast = document.createElement("div");
         forecast.id = "id_"+loc._id;
         forecast.className = "forecast";
         mainDiv.appendChild(forecast);
-    //    forecast.innerHTML = newElement.innerHTML;
-        
+        forecast.innerHTML = newElement.innerHTML;
+      
         showSavedForecast(JSON.parse(loc.location.forecast),loc.location.name, "id_"+loc._id);
     })
+    mainDiv.appendChild(template);
 }
 
 function showSavedForecast(data, location, id){

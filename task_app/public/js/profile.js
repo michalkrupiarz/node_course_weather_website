@@ -35,9 +35,7 @@ function addLocation(locToAdd, locType){
             r.json().then((data) => {
                 console.log('add location data ', data.user)
                 renderLocations();
-                showSavedForecasts(data.user.locations, 
-                    document.querySelector("#forecasts"),
-                    document.createElement("div"))
+                showSavedForecasts(data.user.locations)
             })
         }
     })
@@ -151,9 +149,7 @@ function deleteLocationCall(id){
             response.json().then((data) => {
                 console.log(data);
                 renderLocations();
-                showSavedForecasts(data.user.locations, 
-                    document.querySelector("#forecasts"),
-                    document.createElement("div"))
+                showSavedForecasts(data.user.locations)
             })
         }  
     }) 
@@ -188,9 +184,7 @@ function saveEditedLocation(event){
         } else {
             r.json().then((data) => {
                 renderLocations();
-                showSavedForecasts(data.user.locations, 
-                    document.querySelector("#forecasts"),
-                    document.createElement("div"))
+                showSavedForecasts(data.user.locations)
             })
         }
     })
